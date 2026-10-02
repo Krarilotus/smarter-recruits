@@ -1,9 +1,7 @@
 bugfixes: Bugfixes
-debug_group: Diagnosztika
 debug_log: Újoncok viselkedésének naplózása
 fight_on_the_way: A védekező és támadó újoncok útközben harcolnak
 follow_changes: Kijelölésig követik az áthelyezett gyülekezőhelyet
-horse_archers_group: Lovas íjászok javítása
 keep_new_orders: Az új parancs felülírja a gyülekezési célt
 monks_fix: A szerzetesek szabad helyet keresnek a gyülekezőnél
 qol: Quality of Life
@@ -19,3 +17,4 @@ stance_group: Újoncok viselkedése
 stance_normal: Helyben marad
 stance_start: Újoncok kezdeti viselkedése
 terrain_speed: A terep befolyásolja az újoncok sebességét
+misc: Miscellaneous

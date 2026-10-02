@@ -1,9 +1,7 @@
 bugfixes: Bugfixes
-debug_group: Diagnóstico
 debug_log: Registrar el comportamiento de reclutas
 fight_on_the_way: Los reclutas defensivos y agresivos luchan por el camino
 follow_changes: Los reclutas siguen el punto movido hasta seleccionarlos
-horse_archers_group: Correcciones de arqueros a caballo
 keep_new_orders: Las nuevas órdenes sustituyen el destino de reunión
 monks_fix: Los monjes buscan una casilla libre cerca del punto de reunión
 qol: Quality of Life
@@ -19,3 +17,4 @@ stance_group: Postura de los reclutas
 stance_normal: Mantener posición
 stance_start: Postura inicial de reclutas
 terrain_speed: El terreno afecta a la velocidad de los reclutas
+misc: Miscellaneous

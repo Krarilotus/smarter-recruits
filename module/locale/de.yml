@@ -1,9 +1,7 @@
 bugfixes: Bugfixes
-debug_group: Diagnose
 debug_log: Truppenverhalten protokollieren
 fight_on_the_way: Defensive und aggressive Rekruten kämpfen unterwegs
 follow_changes: Rekruten folgen versetzten Sammelpunkten bis zur Auswahl
-horse_archers_group: Berittene Bogenschützen korrigieren
 keep_new_orders: Neue Befehle ersetzen das Sammelziel
 monks_fix: Mönche finden freie Felder am Sammelpunkt
 qol: Quality of Life
@@ -19,3 +17,4 @@ stance_group: Haltung neuer Truppen
 stance_normal: Stellung halten
 stance_start: Anfängliche Truppenhaltung
 terrain_speed: Gelände beeinflusst das Tempo neuer Truppen
+misc: Miscellaneous

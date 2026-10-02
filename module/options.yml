@@ -1,17 +1,13 @@
 options:
-- display: GroupBox
+- url: smarter-recruits.horse_archers.shoot_on_the_way
+  name: smarter-recruits-horse-archers-shoot-on-the-way
+  text: '{{shoot_on_the_way}}'
+  display: Switch
+  contents:
+    type: boolean
+    value: true
   category:
   - '{{bugfixes}}'
-  header: '{{horse_archers_group}}'
-  hasHeader: true
-  children:
-  - url: smarter-recruits.horse_archers.shoot_on_the_way
-    name: smarter-recruits-horse-archers-shoot-on-the-way
-    text: '{{shoot_on_the_way}}'
-    display: Switch
-    contents:
-      type: boolean
-      value: true
 - display: GroupBox
   category:
   - '{{bugfixes}}'
@@ -39,19 +35,15 @@ options:
     contents:
       type: boolean
       value: true
-- display: GroupBox
+- url: smarter-recruits.horse_archers.ride_on
+  name: smarter-recruits-horse-archers-ride-on
+  text: '{{ride_on}}'
+  display: Switch
+  contents:
+    type: boolean
+    value: true
   category:
   - '{{qol}}'
-  header: '{{horse_archers_group}}'
-  hasHeader: true
-  children:
-  - url: smarter-recruits.horse_archers.ride_on
-    name: smarter-recruits-horse-archers-ride-on
-    text: '{{ride_on}}'
-    display: Switch
-    contents:
-      type: boolean
-      value: true
 - display: GroupBox
   category:
   - '{{qol}}'
@@ -112,18 +104,14 @@ options:
         text: '{{stance_defensive}}'
       - name: aggressive
         text: '{{stance_aggressive}}'
-- display: GroupBox
+- url: smarter-recruits.debug.log
+  name: smarter-recruits-debug-log
+  text: '{{debug_log}}'
+  display: Switch
+  contents:
+    type: boolean
+    value: false
   category:
-  - '{{qol}}'
-  header: '{{debug_group}}'
-  hasHeader: true
-  children:
-  - url: smarter-recruits.debug.log
-    name: smarter-recruits-debug-log
-    text: '{{debug_log}}'
-    display: Switch
-    contents:
-      type: boolean
-      value: false
+  - '{{misc}}'
 meta:
   version: 1.0.0

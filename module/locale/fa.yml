@@ -1,9 +1,7 @@
 bugfixes: Bugfixes
-debug_group: عیب‌یابی
 debug_log: ثبت رفتار سربازان تازه
 fight_on_the_way: سربازان تازه با حالت دفاعی و تهاجمی در راه می‌جنگند
 follow_changes: سربازان تازه تا انتخاب شدن محل تجمع جابه‌جا شده را دنبال می‌کنند
-horse_archers_group: اصلاح کمانداران سواره
 keep_new_orders: فرمان تازه جای مقصد تجمع را می‌گیرد
 monks_fix: راهبان نزدیک محل تجمع جای خالی پیدا می‌کنند
 qol: Quality of Life
@@ -19,3 +17,4 @@ stance_group: حالت سربازان تازه
 stance_normal: حفظ موقعیت
 stance_start: حالت اولیه سربازان تازه
 terrain_speed: زمین بر سرعت سربازان تازه اثر می‌گذارد
+misc: Miscellaneous

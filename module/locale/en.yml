@@ -1,9 +1,7 @@
 bugfixes: Bugfixes
-debug_group: Diagnostics
 debug_log: Log recruit behavior
 fight_on_the_way: Defensive and aggressive recruits fight on the way
 follow_changes: Recruits follow a moved rally point until selected
-horse_archers_group: Horse archer fixes
 keep_new_orders: New orders replace the rally destination
 monks_fix: Monks find a free tile near their rally point
 qol: Quality of Life
@@ -19,3 +17,4 @@ stance_group: Recruit stance
 stance_normal: Stand ground
 stance_start: Initial recruit stance
 terrain_speed: Terrain affects recruits' movement speed
+misc: Miscellaneous

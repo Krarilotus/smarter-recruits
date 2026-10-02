@@ -1,9 +1,7 @@
 bugfixes: Bugfixes
-debug_group: 诊断
 debug_log: 记录新兵行为
 fight_on_the_way: 防御和进攻姿态的新兵沿途战斗
 follow_changes: 新兵被选中前跟随移动后的集合点
-horse_archers_group: 骑射手修复
 keep_new_orders: 新命令替换集合点目的地
 monks_fix: 僧侣在集合点附近寻找空地
 qol: Quality of Life
@@ -19,3 +17,4 @@ stance_group: 新兵姿态
 stance_normal: 原地待命
 stance_start: 新兵初始姿态
 terrain_speed: 地形影响新兵移动速度
+misc: Miscellaneous
