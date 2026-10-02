@@ -18,3 +18,5 @@ stance_normal: Stand ground
 stance_start: Initial recruit stance
 terrain_speed: Terrain affects recruits' movement speed
 misc: Miscellaneous
+tags.behavior: Behavior
+tags.bugfixes: Bug fixes

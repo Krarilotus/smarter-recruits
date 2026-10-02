@@ -18,3 +18,5 @@ stance_normal: Tenir la position
 stance_start: Posture initiale des recrues
 terrain_speed: Le terrain affecte la vitesse des recrues
 misc: Miscellaneous
+tags.behavior: Comportement
+tags.bugfixes: Corrections

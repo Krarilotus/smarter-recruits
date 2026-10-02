@@ -8,4 +8,5 @@
   <file src="png.lua" />
   <file src="templates.lua" />
   <file src="messages.lua" />
+  <file src="CREDITS.md" />
 </files></config>

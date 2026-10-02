@@ -18,3 +18,5 @@ stance_normal: حفظ موقعیت
 stance_start: حالت اولیه سربازان تازه
 terrain_speed: زمین بر سرعت سربازان تازه اثر می‌گذارد
 misc: Miscellaneous
+tags.behavior: رفتار
+tags.bugfixes: رفع اشکال

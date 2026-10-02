@@ -18,3 +18,5 @@ stance_normal: Стоять на месте
 stance_start: Начальная стойка новобранцев
 terrain_speed: Местность влияет на скорость новобранцев
 misc: Miscellaneous
+tags.behavior: Поведение
+tags.bugfixes: Исправления

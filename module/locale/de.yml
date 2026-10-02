@@ -18,3 +18,5 @@ stance_normal: Stellung halten
 stance_start: Anfängliche Truppenhaltung
 terrain_speed: Gelände beeinflusst das Tempo neuer Truppen
 misc: Miscellaneous
+tags.behavior: Verhalten
+tags.bugfixes: Fehlerkorrekturen

@@ -18,3 +18,5 @@ stance_normal: Helyben marad
 stance_start: Újoncok kezdeti viselkedése
 terrain_speed: A terep befolyásolja az újoncok sebességét
 misc: Miscellaneous
+tags.behavior: Viselkedés
+tags.bugfixes: Hibajavítások

@@ -18,3 +18,5 @@ stance_normal: 原地待命
 stance_start: 新兵初始姿态
 terrain_speed: 地形影响新兵移动速度
 misc: Miscellaneous
+tags.behavior: 行为
+tags.bugfixes: 错误修复

@@ -18,3 +18,5 @@ stance_normal: Konumu koru
 stance_start: Yeni askerlerin başlangıç duruşu
 terrain_speed: Arazi yeni askerlerin hızını etkiler
 misc: Miscellaneous
+tags.behavior: Davranış
+tags.bugfixes: Hata düzeltmeleri
