@@ -1,0 +1,130 @@
+options:
+- display: GroupBox
+  category: [Smarter Recruits]
+  header: '{{horse_archers_group}}'
+  text: '{{horse_archers_group_descr}}'
+  hasHeader: true
+  children:
+  - url: smarter-recruits.horse_archers.shoot_on_the_way
+    name: smarter-recruits-horse-archers-shoot-on-the-way
+    text: '{{shoot_on_the_way}}'
+    tooltip: '{{shoot_on_the_way_tooltip}}'
+    display: Switch
+    contents:
+      type: boolean
+      value: true
+  - url: smarter-recruits.horse_archers.ride_on
+    name: smarter-recruits-horse-archers-ride-on
+    text: '{{ride_on}}'
+    tooltip: '{{ride_on_tooltip}}'
+    display: Switch
+    contents:
+      type: boolean
+      value: true
+
+- display: GroupBox
+  category: [Smarter Recruits]
+  header: '{{rally_group}}'
+  text: '{{rally_group_descr}}'
+  hasHeader: true
+  children:
+  - url: smarter-recruits.rally.keep_new_orders
+    name: smarter-recruits-rally-keep-new-orders
+    text: '{{keep_new_orders}}'
+    tooltip: '{{keep_new_orders_tooltip}}'
+    display: Switch
+    contents:
+      type: boolean
+      value: true
+  - url: smarter-recruits.rally.fight_on_the_way
+    name: smarter-recruits-rally-fight-on-the-way
+    text: '{{fight_on_the_way}}'
+    tooltip: '{{fight_on_the_way_tooltip}}'
+    display: Switch
+    contents:
+      type: boolean
+      value: true
+  - url: smarter-recruits.rally.follow_changes
+    name: smarter-recruits-rally-follow-changes
+    text: '{{follow_changes}}'
+    tooltip: '{{follow_changes_tooltip}}'
+    display: Switch
+    contents:
+      type: boolean
+      value: true
+  - url: smarter-recruits.rally.run_when_aggressive
+    name: smarter-recruits-rally-run-when-aggressive
+    text: '{{run_when_aggressive}}'
+    tooltip: '{{run_when_aggressive_tooltip}}'
+    display: Switch
+    contents:
+      type: boolean
+      value: true
+  - url: smarter-recruits.rally.terrain_speed
+    name: smarter-recruits-rally-terrain-speed
+    text: '{{terrain_speed}}'
+    tooltip: '{{terrain_speed_tooltip}}'
+    display: Switch
+    contents:
+      type: boolean
+      value: true
+  - url: smarter-recruits.rally.monks_fix
+    name: smarter-recruits-rally-monks-fix
+    text: '{{monks_fix}}'
+    tooltip: '{{monks_fix_tooltip}}'
+    display: Switch
+    contents:
+      type: boolean
+      value: true
+  - url: smarter-recruits.rally.buttons
+    name: smarter-recruits-rally-buttons
+    text: '{{rally_buttons}}'
+    tooltip: '{{rally_buttons_tooltip}}'
+    display: Switch
+    contents:
+      type: boolean
+      value: true
+
+- display: GroupBox
+  category: [Smarter Recruits]
+  header: '{{stance_group}}'
+  text: '{{stance_group_descr}}'
+  hasHeader: true
+  children:
+  - url: smarter-recruits.stance.button
+    name: smarter-recruits-stance-button
+    text: '{{stance_button}}'
+    tooltip: '{{stance_button_tooltip}}'
+    display: Switch
+    contents:
+      type: boolean
+      value: true
+  - url: smarter-recruits.stance.start
+    name: smarter-recruits-stance-start
+    text: '{{stance_start}}'
+    tooltip: '{{stance_start_tooltip}}'
+    display: Choice
+    contents:
+      value: normal
+      choices:
+      - name: normal
+        text: Normal
+      - name: defensive
+        text: Defensive
+      - name: aggressive
+        text: Aggressive
+
+- display: GroupBox
+  category: [Smarter Recruits]
+  header: '{{debug_group}}'
+  text: '{{debug_group_descr}}'
+  hasHeader: true
+  children:
+  - url: smarter-recruits.debug.log
+    name: smarter-recruits-debug-log
+    text: '{{debug_log}}'
+    tooltip: '{{debug_log_tooltip}}'
+    display: Switch
+    contents:
+      type: boolean
+      value: true

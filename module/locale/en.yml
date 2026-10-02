@@ -1,0 +1,79 @@
+horse_archers_group: Horse archers
+horse_archers_group_descr: |
+  Fresh horse archers ride to their rally point without shooting and then stand there doing
+  nothing, even with enemies right in front of them.
+shoot_on_the_way: Horse archers fight on the way to the rally point
+shoot_on_the_way_tooltip: |
+  Fresh horse archers shoot at enemies while they ride to their rally point, just like they
+  do on any other march. Once there they shoot at enemies in range and react like every
+  other ranged unit instead of freezing on the spot.
+ride_on: Horse archers always ride on to the rally point
+ride_on_tooltip: |
+  Your fresh horse archers never stop or turn aside for enemies on the way to their rally
+  point: they shoot from the saddle and keep riding. Waiting at the rally point they keep
+  shooting at enemies in range and still ride to it again when you move it, whatever their
+  stance. Works with "Horse archers fight on the way to the rally point".
+
+rally_group: Rally points
+rally_group_descr: |
+  Where fresh recruits go after they leave the building.
+keep_new_orders: Recruits keep your new orders
+keep_new_orders_tooltip: |
+  When you send a fresh recruit somewhere else before it reaches its rally point, it stays
+  where you sent it. Without this it walks on to the rally point as soon as it gets there.
+fight_on_the_way: Recruits fight their way to the rally point
+fight_on_the_way_tooltip: |
+  Recruits that start in the defensive or aggressive stance (see "Stance of new recruits")
+  deal with enemies on the way to their rally point the way patrolling troops do: archers
+  and other ranged units stop and shoot, melee units go for enemies that come within their
+  stance's range, and once the way is clear they carry on to the rally point. The ranges are
+  the game's (or what exe-value-patcher sets them to). Recruits in the normal stance walk
+  there as before; horse archers ride on (see above). Waiting at the rally point, recruits
+  in those stances react to enemies the way idle troops in that stance do.
+run_when_aggressive: Aggressive recruits run to the rally point
+run_when_aggressive_tooltip: |
+  Recruits in the aggressive stance run to their rally point instead of walking, if their
+  kind of soldier can run at all: archers, spearmen, macemen, knights, Arab archers, slaves,
+  slingers and monks. The others walk as before.
+follow_changes: Recruits that fight their way follow a moved rally point
+follow_changes_tooltip: |
+  Recruits that fight their way to the rally point (see above) wait there afterwards and,
+  like every other recruit in the game, walk to the rally point again whenever you move it,
+  fighting their way there as before. This stops as soon as you select them.
+terrain_speed: Terrain slows recruits on the way to the rally point
+terrain_speed_tooltip: |
+  Fresh recruits walk to their rally point at the speed the ground allows - slower uphill,
+  through marsh and so on - like any other marching troops. In the unmodified game they
+  cross every kind of ground at full speed.
+monks_fix: Monks really go to their rally point
+monks_fix_tooltip: |
+  The game looks for a free spot at the monks' rally point but checks only one tile; when
+  that tile is taken or out of reach the monk walks to the cathedral's door instead. With
+  this, it checks the tiles around the rally point like it does for every other unit.
+rally_buttons: Rally point buttons on the unit pictures
+rally_buttons_tooltip: |
+  Puts a small flag button on every unit picture in the barracks, mercenary post, engineer's
+  guild, tunneler's guild and cathedral. Click it, then click on the map, and that unit's
+  rally point is set - the same as pressing the unit's number key, without having to know
+  which key it is. Hovering over a button explains it at the top left of the panel.
+
+stance_group: Stance of new recruits
+stance_group_descr: |
+  The stance (normal, defensive or aggressive) fresh recruits start with. Single player only.
+stance_button: Stance button in the recruiting buildings
+stance_button_tooltip: |
+  Puts a stance button on the last unit picture of the barracks and the mercenary post, and
+  on the unit picture of the guilds and the cathedral. Each click switches between normal,
+  defensive and aggressive, and every unit you recruit from then on starts in that stance.
+  The choice is the same for all recruiting buildings.
+stance_start: Stance at the start of a game
+stance_start_tooltip: |
+  What the stance button is set to when the game starts.
+
+debug_group: Diagnostics
+debug_group_descr: |
+  For finding problems.
+debug_log: Write what recruits are doing to the log
+debug_log_tooltip: |
+  Every few seconds, writes the state of your recruits on their way to or waiting at their
+  rally point to ucp3.log in the game folder. Switch it off when everything works.
