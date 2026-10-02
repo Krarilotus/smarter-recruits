@@ -1,0 +1,21 @@
+bugfixes: Bugfixes
+debug_group: Diagnóstico
+debug_log: Registrar el comportamiento de reclutas
+fight_on_the_way: Los reclutas defensivos y agresivos luchan por el camino
+follow_changes: Los reclutas siguen el punto movido hasta seleccionarlos
+horse_archers_group: Correcciones de arqueros a caballo
+keep_new_orders: Las nuevas órdenes sustituyen el destino de reunión
+monks_fix: Los monjes buscan una casilla libre cerca del punto de reunión
+qol: Quality of Life
+rally_buttons: Mostrar botones de reunión en los retratos
+rally_group: Puntos de reunión de reclutas
+ride_on: Los arqueros a caballo siguen avanzando al luchar
+run_when_aggressive: Los reclutas agresivos corren si pueden
+shoot_on_the_way: Los arqueros a caballo disparan de camino al punto de reunión
+stance_aggressive: Agresiva
+stance_button: Mostrar botones de postura (un jugador)
+stance_defensive: Defensiva
+stance_group: Postura de los reclutas
+stance_normal: Mantener posición
+stance_start: Postura inicial de reclutas
+terrain_speed: El terreno afecta a la velocidad de los reclutas

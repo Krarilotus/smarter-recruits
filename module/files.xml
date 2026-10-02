@@ -1,0 +1,11 @@
+<config><files>
+  <file src="config.yml" />
+  <file src="definition.yml" />
+  <file src="images" />
+  <file src="init.lua" />
+  <file src="locale" />
+  <file src="options.yml" />
+  <file src="png.lua" />
+  <file src="templates.lua" />
+  <file src="messages.lua" />
+</files></config>

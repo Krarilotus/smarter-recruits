@@ -1,7 +1,14 @@
 name: smarter-recruits
 display-name: Smarter Recruits
 type: module
-version: 1.0.10
+version: 1.0.11
 author: Monsterfish
 meta:
-  version: 1.0.10
+  version: 1.0.0
+game:
+- SHC==1.41
+- SHCE==1.41
+dependencies:
+  framework: '>=3.0.7'
+  frontend: '>=1.0.2'
+  textResourceModifier: ^0.3.0

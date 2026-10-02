@@ -1,0 +1,21 @@
+bugfixes: Bugfixes
+debug_group: Tanılama
+debug_log: Yeni asker davranışlarını kaydet
+fight_on_the_way: Savunmacı ve saldırgan yeni askerler yolda savaşır
+follow_changes: Yeni askerler seçilene kadar taşınan toplanma noktasını izler
+horse_archers_group: Atlı okçu düzeltmeleri
+keep_new_orders: Yeni emirler toplanma hedefinin yerini alır
+monks_fix: Keşişler toplanma noktası yakınında boş yer bulur
+qol: Quality of Life
+rally_buttons: Birim resimlerinde toplanma düğmeleri göster
+rally_group: Yeni askerlerin toplanma noktaları
+ride_on: Atlı okçular savaşırken ilerlemeye devam eder
+run_when_aggressive: Saldırgan yeni askerler mümkünse koşar
+shoot_on_the_way: Atlı okçular toplanma noktasına giderken ateş eder
+stance_aggressive: Saldırgan
+stance_button: Duruş düğmeleri göster (tek oyunculu)
+stance_defensive: Savunmacı
+stance_group: Yeni asker duruşu
+stance_normal: Konumu koru
+stance_start: Yeni askerlerin başlangıç duruşu
+terrain_speed: Arazi yeni askerlerin hızını etkiler

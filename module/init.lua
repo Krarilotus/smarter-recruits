@@ -43,7 +43,7 @@ local DEFAULTS = {
   rally = { keep_new_orders = true, buttons = true, fight_on_the_way = true, follow_changes = true,
     run_when_aggressive = true, terrain_speed = true, monks_fix = true },
   stance = { button = true, start = "normal" },
-  debug = { log = true },
+  debug = { log = false },
 }
 
 local STANCES = { normal = 0, defensive = 1, aggressive = 2 }
@@ -300,12 +300,8 @@ local TIP_Y_GUILDS = 415 + TIP_LINE - 10
 local TIP_Y_MERCENARIES = 424
 local TIP_FONT = 0x12
 local TIP_COLOUR = 0xB8EEFB
-local TIPS = {
-  "Rally point: click here, then click on the map",
-  "Stance of new recruits: normal - click to change",
-  "Stance of new recruits: defensive - click to change",
-  "Stance of new recruits: aggressive - click to change",
-}
+local TIPS = require("messages").english
+
 local TIP_ON_MAP_LAYER = { [30] = true, [29] = true, [5] = true, [37] = true }
 -- renderCurrentlyDisplayedTextConstructionCost: the hover text, read for the camera offset
 -- it adds to text it draws on the map layer.
@@ -1120,6 +1116,22 @@ local function installButtons(values, rallyOn, stanceOn)
     core.writeString(address, text)
     core.writeInteger(tables.tips + (index - 1) * 4, address)
   end
+  -- CR.TEX is loaded at afterInit. Reuse the text owner rather than a private encoder.
+  hooks.registerHookCallback("afterInit", function()
+    local owner = modules.textResourceModifier
+    local language = owner:GetLanguage():lower()
+    local texts = require("messages")[language] or TIPS
+    local encoded = {}
+    for index, text in ipairs(texts) do
+      encoded[index] = owner:TransformText(text)
+      assert(not encoded[index]:match("^ERROR:"), "smarter-recruits: text encoding unavailable")
+    end
+    for index, text in ipairs(encoded) do
+      local address = core.allocate(#text + 1, true)
+      core.writeString(address, text)
+      core.writeInteger(tables.tips + (index - 1) * 4, address)
+    end
+  end)
   local hoverText = scan(AOB_HOVER_TEXT, "the game's hover text")
   local tipValues = {
     TIP_LAYERS = tables.tipLayers,

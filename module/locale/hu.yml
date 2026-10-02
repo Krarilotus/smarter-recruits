@@ -1,0 +1,21 @@
+bugfixes: Bugfixes
+debug_group: Diagnosztika
+debug_log: Újoncok viselkedésének naplózása
+fight_on_the_way: A védekező és támadó újoncok útközben harcolnak
+follow_changes: Kijelölésig követik az áthelyezett gyülekezőhelyet
+horse_archers_group: Lovas íjászok javítása
+keep_new_orders: Az új parancs felülírja a gyülekezési célt
+monks_fix: A szerzetesek szabad helyet keresnek a gyülekezőnél
+qol: Quality of Life
+rally_buttons: Gyülekezési gombok az egységképeken
+rally_group: Újoncok gyülekezőhelye
+ride_on: A lovas íjászok harc közben is továbbhaladnak
+run_when_aggressive: A támadó újoncok futnak, ha tudnak
+shoot_on_the_way: A lovas íjászok útközben is lőnek
+stance_aggressive: Támadó
+stance_button: Viselkedésgombok (egyjátékos mód)
+stance_defensive: Védekező
+stance_group: Újoncok viselkedése
+stance_normal: Helyben marad
+stance_start: Újoncok kezdeti viselkedése
+terrain_speed: A terep befolyásolja az újoncok sebességét

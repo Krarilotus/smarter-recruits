@@ -1,0 +1,21 @@
+bugfixes: Bugfixes
+debug_group: Diagnostic
+debug_log: Journaliser le comportement des recrues
+fight_on_the_way: Les recrues défensives et agressives combattent en chemin
+follow_changes: Les recrues suivent le ralliement déplacé jusqu'à leur sélection
+horse_archers_group: Corrections des archers montés
+keep_new_orders: Les nouveaux ordres remplacent le ralliement
+monks_fix: Les moines cherchent une case libre près du ralliement
+qol: Quality of Life
+rally_buttons: Afficher les boutons de ralliement sur les portraits
+rally_group: Points de ralliement des recrues
+ride_on: Les archers montés continuent à avancer en combattant
+run_when_aggressive: Les recrues agressives courent si possible
+shoot_on_the_way: Les archers montés tirent vers leur point de ralliement
+stance_aggressive: Agressive
+stance_button: Afficher les boutons de posture (solo)
+stance_defensive: Défensive
+stance_group: Posture des recrues
+stance_normal: Tenir la position
+stance_start: Posture initiale des recrues
+terrain_speed: Le terrain affecte la vitesse des recrues
