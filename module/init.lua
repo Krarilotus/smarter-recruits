@@ -621,6 +621,19 @@ end
 local UNIT_WORKING_SPEED = 0x34A
 local RALLY_SPEED_STORES = 18
 
+-- The framework owns the search range. Count all matches up to one beyond the expected
+-- count, so an extra match leaves the native code alone.
+local function findSites(pattern, count, accept)
+  local sites, from = {}, nil
+  while #sites <= count do
+    local site = core.scanForAOB(pattern, from)
+    if site == nil or site == 0 then break end
+    if accept == nil or accept(site) then sites[#sites + 1] = site end
+    from = site + 1
+  end
+  return sites
+end
+
 local function patchRallySpeed(unitBase)
   local target = unitBase + UNIT_WORKING_SPEED
   local bytes = {}
@@ -628,18 +641,10 @@ local function patchRallySpeed(unitBase)
     bytes[#bytes + 1] = string.format("%02X", byte & 0xFF)
   end
   local pattern = "66 89 ? " .. table.concat(bytes, " ")
-  local sites, from = {}, 0x400000
-  while #sites < RALLY_SPEED_STORES + 1 do
-    local ok, site = pcall(core.scanForAOB, pattern, from, 0x600000)
-    if not ok or site == nil or site == 0 then
-      break
-    end
+  local sites = findSites(pattern, RALLY_SPEED_STORES, function(site)
     local modrm = core.readByte(site + 2) & 0xFF
-    if (modrm & 0xC7) == 0x86 then          -- [esi + disp32] with ax/cx/dx/bx...
-      sites[#sites + 1] = site
-    end
-    from = site + 1
-  end
+    return (modrm & 0xC7) == 0x86 -- [esi + disp32] with ax/cx/dx/bx...
+  end)
   if #sites ~= RALLY_SPEED_STORES then
     log(WARNING, string.format("%s: found %d of the %d rally speed stores; terrain still does not "
       .. "slow recruits on the way to their rally point", MODULE_NAME, #sites, RALLY_SPEED_STORES))
@@ -756,14 +761,13 @@ local function patchFightOnTheWay(horseArcher, stanceRead, values, followChanges
   -- The ranged units' "stop and shoot while walking" test, in five update functions.
   local rangedSites = {}
   for _, form in ipairs(RANGED_WALK_CHECKS) do
-    local from = 0x400000
-    for _ = 1, form.count do
-      local ok, found = pcall(core.scanForAOB, form.pattern, from, 0x600000)
-      if not ok or found == nil or found == 0 then
-        break
-      end
-      rangedSites[#rangedSites + 1] = found + form.offset
-      from = found + 1
+    local sites = findSites(form.pattern, form.count)
+    if #sites ~= form.count then
+      rangedSites = {}
+      break
+    end
+    for _, site in ipairs(sites) do
+      rangedSites[#rangedSites + 1] = site + form.offset
     end
   end
   if #rangedSites == RANGED_WALK_CHECK_COUNT then
