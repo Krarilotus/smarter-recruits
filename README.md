@@ -1,10 +1,23 @@
 # Smarter Recruits
 
 **Author**: Monsterfish
-**Version**: 1.0.10
+**Version**: 1.0.11
 
 Small fixes and buttons for the troops you recruit. Every part can be switched off in the
 settings.
+
+## Configure the module
+
+Enable Smarter Recruits in UCP with the dependencies listed in `module/definition.yml`.
+Apply your choices in **Customizations** before launching Crusader or Crusader Extreme.
+The recruitment fixes are under **Bugfixes**, the rally and stance controls are under
+**Quality of Life**, and the recruit log is under **Miscellaneous**.
+
+For one rally point, open your Barracks, click the small button on the archer portrait,
+then click the destination on the map. Recruit an archer by clicking the main part of
+the portrait. To test order priority, give the new archer a move order before it reaches
+the flag. The new destination takes over if **New orders replace the rally destination**
+is enabled.
 
 ## Horse archers fight on the way to the rally point
 
