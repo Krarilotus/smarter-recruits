@@ -1,3 +1,3 @@
 # Smarter Recruits
 
-Javítja az új parancsokat figyelmen kívül hagyó újoncokat és gyülekezési viselkedésüket. Gyülekezési és viselkedésgombokat ad a toborzóépületekhez.
+Javítja, hogy az újoncok figyelmen kívül hagyják az új parancsokat, és javítja a gyülekezési ponton tanúsított viselkedésüket. Gyülekezési pont- és harci mód gombokat ad a toborzóépületekhez.

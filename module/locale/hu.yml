@@ -1,34 +1,34 @@
 bugfixes: Hibajavítások
 debug_log: Újoncok viselkedésének naplózása
-debug_log_details: Alapértelmezésben ki van kapcsolva.
+debug_log_details: Alapértelmezés szerint kikapcsolva.
 fight_on_the_way: A védekező és támadó újoncok útközben harcolnak
-fight_on_the_way_details: Alapértelmezésben be van kapcsolva.
-follow_changes: Kijelölésig követik az áthelyezett gyülekezőhelyet
-follow_changes_details: Alapértelmezésben be van kapcsolva.
-keep_new_orders: Az új parancs felülírja a gyülekezési célt
-keep_new_orders_details: Alapértelmezésben be van kapcsolva.
+fight_on_the_way_details: Alapértelmezés szerint bekapcsolva.
+follow_changes: Az újoncok kijelölésig követik az áthelyezett gyülekezési pontot
+follow_changes_details: Alapértelmezés szerint bekapcsolva.
+keep_new_orders: Az új parancsok felülírják a gyülekezési célt
+keep_new_orders_details: Alapértelmezés szerint bekapcsolva.
 misc: Egyéb
-monks_fix: A szerzetesek szabad helyet keresnek a gyülekezőnél
-monks_fix_details: Alapértelmezésben be van kapcsolva.
+monks_fix: A szerzetesek szabad mezőt találnak a gyülekezési pont közelében
+monks_fix_details: Alapértelmezés szerint bekapcsolva.
 qol: Kényelmi funkciók
-rally_buttons: Gyülekezési gombok az egységképeken
-rally_buttons_details: Alapértelmezésben be van kapcsolva.
-rally_group: Újoncok gyülekezőhelye
-ride_on: A lovas íjászok harc közben is továbbhaladnak
-ride_on_details: Alapértelmezésben be van kapcsolva.
+rally_buttons: Gyülekezési gombok megjelenítése az egységportrékon
+rally_buttons_details: Alapértelmezés szerint bekapcsolva.
+rally_group: Újoncok gyülekezési pontjai
+ride_on: A lovasíjászok harc közben is tovább lovagolnak
+ride_on_details: Alapértelmezés szerint bekapcsolva.
 run_when_aggressive: A támadó újoncok futnak, ha tudnak
-run_when_aggressive_details: Alapértelmezésben be van kapcsolva.
-shoot_on_the_way: A lovas íjászok útközben is lőnek
-shoot_on_the_way_details: Alapértelmezésben be van kapcsolva.
+run_when_aggressive_details: Alapértelmezés szerint bekapcsolva.
+shoot_on_the_way: A lovasíjászok a gyülekezési pont felé menet is lőnek
+shoot_on_the_way_details: Alapértelmezés szerint bekapcsolva.
 stance_aggressive: Támadó
-stance_button: Viselkedésgombok (egyjátékos mód)
-stance_button_details: Alapértelmezésben be van kapcsolva.
+stance_button: Harci mód gombok megjelenítése (egyjátékos mód)
+stance_button_details: Alapértelmezés szerint bekapcsolva.
 stance_defensive: Védekező
-stance_group: Újoncok viselkedése
-stance_group_details: 'Újoncok kezdeti viselkedése — Alapérték: normal.'
-stance_normal: Helyben marad
-stance_start: Újoncok kezdeti viselkedése
+stance_group: Újoncok harci módja
+stance_group_details: 'Újoncok kezdeti harci módja — Alapértelmezett: Helyben maradás (normal).'
+stance_normal: Helyben maradás
+stance_start: Újoncok kezdeti harci módja
 tags.behavior: Viselkedés
 tags.bugfixes: Hibajavítások
-terrain_speed: A terep befolyásolja az újoncok sebességét
-terrain_speed_details: Alapértelmezésben be van kapcsolva.
+terrain_speed: A terep befolyásolja az újoncok mozgási sebességét
+terrain_speed_details: Alapértelmezés szerint bekapcsolva.
