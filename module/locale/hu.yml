@@ -1,22 +1,34 @@
-bugfixes: Bugfixes
+bugfixes: Hibajavítások
 debug_log: Újoncok viselkedésének naplózása
+debug_log_details: Alapértelmezésben ki van kapcsolva.
 fight_on_the_way: A védekező és támadó újoncok útközben harcolnak
+fight_on_the_way_details: Alapértelmezésben be van kapcsolva.
 follow_changes: Kijelölésig követik az áthelyezett gyülekezőhelyet
+follow_changes_details: Alapértelmezésben be van kapcsolva.
 keep_new_orders: Az új parancs felülírja a gyülekezési célt
+keep_new_orders_details: Alapértelmezésben be van kapcsolva.
+misc: Egyéb
 monks_fix: A szerzetesek szabad helyet keresnek a gyülekezőnél
-qol: Quality of Life
+monks_fix_details: Alapértelmezésben be van kapcsolva.
+qol: Kényelmi funkciók
 rally_buttons: Gyülekezési gombok az egységképeken
+rally_buttons_details: Alapértelmezésben be van kapcsolva.
 rally_group: Újoncok gyülekezőhelye
 ride_on: A lovas íjászok harc közben is továbbhaladnak
+ride_on_details: Alapértelmezésben be van kapcsolva.
 run_when_aggressive: A támadó újoncok futnak, ha tudnak
+run_when_aggressive_details: Alapértelmezésben be van kapcsolva.
 shoot_on_the_way: A lovas íjászok útközben is lőnek
+shoot_on_the_way_details: Alapértelmezésben be van kapcsolva.
 stance_aggressive: Támadó
 stance_button: Viselkedésgombok (egyjátékos mód)
+stance_button_details: Alapértelmezésben be van kapcsolva.
 stance_defensive: Védekező
 stance_group: Újoncok viselkedése
+stance_group_details: 'Újoncok kezdeti viselkedése — Alapérték: normal.'
 stance_normal: Helyben marad
 stance_start: Újoncok kezdeti viselkedése
-terrain_speed: A terep befolyásolja az újoncok sebességét
-misc: Miscellaneous
 tags.behavior: Viselkedés
 tags.bugfixes: Hibajavítások
+terrain_speed: A terep befolyásolja az újoncok sebességét
+terrain_speed_details: Alapértelmezésben be van kapcsolva.

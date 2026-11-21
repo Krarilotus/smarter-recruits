@@ -1,22 +1,34 @@
-bugfixes: Bugfixes
+bugfixes: رفع اشکال
 debug_log: ثبت رفتار سربازان تازه
+debug_log_details: به‌طور پیش‌فرض خاموش است.
 fight_on_the_way: سربازان تازه با حالت دفاعی و تهاجمی در راه می‌جنگند
+fight_on_the_way_details: به‌طور پیش‌فرض روشن است.
 follow_changes: سربازان تازه تا انتخاب شدن محل تجمع جابه‌جا شده را دنبال می‌کنند
+follow_changes_details: به‌طور پیش‌فرض روشن است.
 keep_new_orders: فرمان تازه جای مقصد تجمع را می‌گیرد
+keep_new_orders_details: به‌طور پیش‌فرض روشن است.
+misc: متفرقه
 monks_fix: راهبان نزدیک محل تجمع جای خالی پیدا می‌کنند
-qol: Quality of Life
+monks_fix_details: به‌طور پیش‌فرض روشن است.
+qol: بهبود تجربه بازی
 rally_buttons: نمایش دکمه تجمع روی تصویر واحدها
+rally_buttons_details: به‌طور پیش‌فرض روشن است.
 rally_group: محل تجمع سربازان تازه
 ride_on: کمانداران سواره هنگام نبرد به حرکت ادامه می‌دهند
+ride_on_details: به‌طور پیش‌فرض روشن است.
 run_when_aggressive: سربازان تازه در حالت تهاجمی اگر بتوانند می‌دوند
+run_when_aggressive_details: به‌طور پیش‌فرض روشن است.
 shoot_on_the_way: کمانداران سواره در راه محل تجمع تیر می‌زنند
+shoot_on_the_way_details: به‌طور پیش‌فرض روشن است.
 stance_aggressive: تهاجمی
 stance_button: نمایش دکمه حالت (تک‌نفره)
+stance_button_details: به‌طور پیش‌فرض روشن است.
 stance_defensive: دفاعی
 stance_group: حالت سربازان تازه
+stance_group_details: 'حالت اولیه سربازان تازه — مقدار پیش‌فرض: normal.'
 stance_normal: حفظ موقعیت
 stance_start: حالت اولیه سربازان تازه
-terrain_speed: زمین بر سرعت سربازان تازه اثر می‌گذارد
-misc: Miscellaneous
 tags.behavior: رفتار
 tags.bugfixes: رفع اشکال
+terrain_speed: زمین بر سرعت سربازان تازه اثر می‌گذارد
+terrain_speed_details: به‌طور پیش‌فرض روشن است.

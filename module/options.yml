@@ -1,13 +1,14 @@
 options:
 - url: smarter-recruits.horse_archers.shoot_on_the_way
   name: smarter-recruits-horse-archers-shoot-on-the-way
-  text: '{{shoot_on_the_way}}'
-  display: Switch
+  text: '{{shoot_on_the_way_details}}'
+  display: UCP2Switch
   contents:
     type: boolean
     value: true
   category:
   - '{{bugfixes}}'
+  header: '{{shoot_on_the_way}}'
 - display: GroupBox
   category:
   - '{{bugfixes}}'
@@ -16,34 +17,38 @@ options:
   children:
   - url: smarter-recruits.rally.keep_new_orders
     name: smarter-recruits-rally-keep-new-orders
-    text: '{{keep_new_orders}}'
-    display: Switch
+    text: '{{keep_new_orders_details}}'
+    display: UCP2Switch
     contents:
       type: boolean
       value: true
+    header: '{{keep_new_orders}}'
   - url: smarter-recruits.rally.terrain_speed
     name: smarter-recruits-rally-terrain-speed
-    text: '{{terrain_speed}}'
-    display: Switch
+    text: '{{terrain_speed_details}}'
+    display: UCP2Switch
     contents:
       type: boolean
       value: true
+    header: '{{terrain_speed}}'
   - url: smarter-recruits.rally.monks_fix
     name: smarter-recruits-rally-monks-fix
-    text: '{{monks_fix}}'
-    display: Switch
+    text: '{{monks_fix_details}}'
+    display: UCP2Switch
     contents:
       type: boolean
       value: true
+    header: '{{monks_fix}}'
 - url: smarter-recruits.horse_archers.ride_on
   name: smarter-recruits-horse-archers-ride-on
-  text: '{{ride_on}}'
-  display: Switch
+  text: '{{ride_on_details}}'
+  display: UCP2Switch
   contents:
     type: boolean
     value: true
   category:
   - '{{qol}}'
+  header: '{{ride_on}}'
 - display: GroupBox
   category:
   - '{{qol}}'
@@ -52,32 +57,36 @@ options:
   children:
   - url: smarter-recruits.rally.fight_on_the_way
     name: smarter-recruits-rally-fight-on-the-way
-    text: '{{fight_on_the_way}}'
-    display: Switch
+    text: '{{fight_on_the_way_details}}'
+    display: UCP2Switch
     contents:
       type: boolean
       value: true
+    header: '{{fight_on_the_way}}'
   - url: smarter-recruits.rally.follow_changes
     name: smarter-recruits-rally-follow-changes
-    text: '{{follow_changes}}'
-    display: Switch
+    text: '{{follow_changes_details}}'
+    display: UCP2Switch
     contents:
       type: boolean
       value: true
+    header: '{{follow_changes}}'
   - url: smarter-recruits.rally.run_when_aggressive
     name: smarter-recruits-rally-run-when-aggressive
-    text: '{{run_when_aggressive}}'
-    display: Switch
+    text: '{{run_when_aggressive_details}}'
+    display: UCP2Switch
     contents:
       type: boolean
       value: true
+    header: '{{run_when_aggressive}}'
   - url: smarter-recruits.rally.buttons
     name: smarter-recruits-rally-buttons
-    text: '{{rally_buttons}}'
-    display: Switch
+    text: '{{rally_buttons_details}}'
+    display: UCP2Switch
     contents:
       type: boolean
       value: true
+    header: '{{rally_buttons}}'
 - display: GroupBox
   category:
   - '{{qol}}'
@@ -86,11 +95,12 @@ options:
   children:
   - url: smarter-recruits.stance.button
     name: smarter-recruits-stance-button
-    text: '{{stance_button}}'
-    display: Switch
+    text: '{{stance_button_details}}'
+    display: UCP2Switch
     contents:
       type: boolean
       value: true
+    header: '{{stance_button}}'
   - url: smarter-recruits.stance.start
     name: smarter-recruits-stance-start
     text: '{{stance_start}}'
@@ -104,14 +114,16 @@ options:
         text: '{{stance_defensive}}'
       - name: aggressive
         text: '{{stance_aggressive}}'
+  text: '{{stance_group_details}}'
 - url: smarter-recruits.debug.log
   name: smarter-recruits-debug-log
-  text: '{{debug_log}}'
-  display: Switch
+  text: '{{debug_log_details}}'
+  display: UCP2Switch
   contents:
     type: boolean
     value: false
   category:
   - '{{misc}}'
+  header: '{{debug_log}}'
 meta:
   version: 1.0.0
