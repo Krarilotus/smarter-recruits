@@ -87,5 +87,3 @@ like the button with `_alpha` at the end, for example `rally_alpha.png` - white 
 black is see-through, grey is in between. For a different picture while the mouse is over a button, add a file of the same size
 named like the button with `_hover` at the end, for example `rally_hover.png`. Without one
 the button is drawn a little brighter. Restart the game after changing a picture.
-
-See [the UCP integration review](docs/ucp-review.md) for ownership and remaining acceptance.
