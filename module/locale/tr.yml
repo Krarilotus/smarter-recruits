@@ -1,34 +1,22 @@
 bugfixes: Hata düzeltmeleri
 debug_log: Yeni asker davranışlarını günlüğe yaz
-debug_log_details: Varsayılan olarak kapalı.
 fight_on_the_way: Savunma ve saldırgan duruştaki yeni askerler yolda savaşır
-fight_on_the_way_details: Varsayılan olarak açık.
 follow_changes: Yeni askerler seçilene kadar taşınan toplanma noktasını izler
-follow_changes_details: Varsayılan olarak açık.
 keep_new_orders: Yeni emirler toplanma hedefinin yerini alır
-keep_new_orders_details: Varsayılan olarak açık.
 misc: Diğer
 monks_fix: Keşişler toplanma noktası yakınında boş kare bulur
-monks_fix_details: Varsayılan olarak açık.
 qol: Yaşam kalitesi
 rally_buttons: Birim portrelerinde toplanma düğmelerini göster
-rally_buttons_details: Varsayılan olarak açık.
 rally_group: Yeni askerlerin toplanma noktaları
 ride_on: Atlı okçular savaşırken ilerlemeye devam eder
-ride_on_details: Varsayılan olarak açık.
 run_when_aggressive: Saldırgan yeni askerler mümkünse koşar
-run_when_aggressive_details: Varsayılan olarak açık.
 shoot_on_the_way: Atlı okçular toplanma noktasına giderken ateş eder
-shoot_on_the_way_details: Varsayılan olarak açık.
 stance_aggressive: Saldırgan
 stance_button: Duruş düğmelerini göster (tek oyunculu)
-stance_button_details: Varsayılan olarak açık.
 stance_defensive: Savunma
 stance_group: Yeni asker duruşu
-stance_group_details: 'Yeni askerlerin başlangıç duruşu — Varsayılan: Konumu koru (normal).'
 stance_normal: Konumu koru
 stance_start: Yeni askerlerin başlangıç duruşu
 tags.behavior: Davranış
 tags.bugfixes: Hata düzeltmeleri
 terrain_speed: Arazi yeni askerlerin hareket hızını etkiler
-terrain_speed_details: Varsayılan olarak açık.

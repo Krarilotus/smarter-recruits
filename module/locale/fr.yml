@@ -1,34 +1,22 @@
 bugfixes: Corrections
 debug_log: Journaliser le comportement des recrues
-debug_log_details: Désactivé par défaut.
 fight_on_the_way: Les recrues défensives et agressives combattent en chemin
-fight_on_the_way_details: Activé par défaut.
 follow_changes: Les recrues suivent un point de ralliement déplacé jusqu'à leur sélection
-follow_changes_details: Activé par défaut.
 keep_new_orders: Les nouveaux ordres remplacent la destination de ralliement
-keep_new_orders_details: Activé par défaut.
 misc: Divers
 monks_fix: Les moines cherchent une case libre près du point de ralliement
-monks_fix_details: Activé par défaut.
 qol: Qualité de vie
 rally_buttons: Afficher les boutons de ralliement sur les portraits d'unités
-rally_buttons_details: Activé par défaut.
 rally_group: Points de ralliement des recrues
 ride_on: Les archers montés continuent à avancer en combattant
-ride_on_details: Activé par défaut.
 run_when_aggressive: Les recrues agressives courent si possible
-run_when_aggressive_details: Activé par défaut.
 shoot_on_the_way: Les archers montés tirent en chemin vers leur point de ralliement
-shoot_on_the_way_details: Activé par défaut.
 stance_aggressive: Agressive
 stance_button: Afficher les boutons de posture (solo)
-stance_button_details: Activé par défaut.
 stance_defensive: Défensive
 stance_group: Posture des recrues
-stance_group_details: 'Posture initiale des recrues — Par défaut : Tenir la position (normal).'
 stance_normal: Tenir la position
 stance_start: Posture initiale des recrues
 tags.behavior: Comportement
 tags.bugfixes: Corrections
 terrain_speed: Le terrain affecte la vitesse de déplacement des recrues
-terrain_speed_details: Activé par défaut.

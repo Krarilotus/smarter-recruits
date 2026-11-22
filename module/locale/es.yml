@@ -1,34 +1,22 @@
 bugfixes: Correcciones
 debug_log: Registrar el comportamiento de los reclutas
-debug_log_details: Desactivado por defecto.
 fight_on_the_way: Los reclutas defensivos y agresivos luchan por el camino
-fight_on_the_way_details: Activado por defecto.
 follow_changes: Los reclutas siguen un punto de reunión movido hasta ser seleccionados
-follow_changes_details: Activado por defecto.
 keep_new_orders: Las nuevas órdenes sustituyen el destino de reunión
-keep_new_orders_details: Activado por defecto.
 misc: Varios
 monks_fix: Los monjes buscan una casilla libre cerca de su punto de reunión
-monks_fix_details: Activado por defecto.
 qol: Calidad de vida
 rally_buttons: Mostrar botones de reunión en los retratos de unidades
-rally_buttons_details: Activado por defecto.
 rally_group: Puntos de reunión de reclutas
 ride_on: Los arqueros a caballo siguen cabalgando mientras luchan
-ride_on_details: Activado por defecto.
 run_when_aggressive: Los reclutas agresivos corren cuando pueden
-run_when_aggressive_details: Activado por defecto.
 shoot_on_the_way: Los arqueros a caballo disparan de camino a su punto de reunión
-shoot_on_the_way_details: Activado por defecto.
 stance_aggressive: Agresiva
 stance_button: Mostrar botones de postura (un jugador)
-stance_button_details: Activado por defecto.
 stance_defensive: Defensiva
 stance_group: Postura de los reclutas
-stance_group_details: 'Postura inicial de reclutas — Predeterminado: Mantener posición (normal).'
 stance_normal: Mantener posición
 stance_start: Postura inicial de reclutas
 tags.behavior: Comportamiento
 tags.bugfixes: Correcciones
 terrain_speed: El terreno afecta a la velocidad de movimiento de los reclutas
-terrain_speed_details: Activado por defecto.

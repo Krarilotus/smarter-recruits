@@ -1,34 +1,22 @@
 bugfixes: Fehlerkorrekturen
 debug_log: Rekrutenverhalten protokollieren
-debug_log_details: Standardmäßig deaktiviert.
 fight_on_the_way: Defensive und aggressive Rekruten kämpfen unterwegs
-fight_on_the_way_details: Standardmäßig aktiviert.
 follow_changes: Rekruten folgen einem versetzten Sammelpunkt bis zur Auswahl
-follow_changes_details: Standardmäßig aktiviert.
 keep_new_orders: Neue Befehle ersetzen das Sammelziel
-keep_new_orders_details: Standardmäßig aktiviert.
 misc: Sonstiges
 monks_fix: Mönche suchen ein freies Feld nahe dem Sammelpunkt
-monks_fix_details: Standardmäßig aktiviert.
 qol: Komfortfunktionen
 rally_buttons: Sammelpunktknöpfe auf Einheitenporträts anzeigen
-rally_buttons_details: Standardmäßig aktiviert.
 rally_group: Sammelpunkte für Rekruten
 ride_on: Berittene Bogenschützen reiten beim Kämpfen weiter
-ride_on_details: Standardmäßig aktiviert.
 run_when_aggressive: Aggressive Rekruten rennen, wenn möglich
-run_when_aggressive_details: Standardmäßig aktiviert.
 shoot_on_the_way: Berittene Bogenschützen schießen unterwegs zum Sammelpunkt
-shoot_on_the_way_details: Standardmäßig aktiviert.
 stance_aggressive: Aggressiv
 stance_button: Haltungsknöpfe anzeigen (Einzelspieler)
-stance_button_details: Standardmäßig aktiviert.
 stance_defensive: Defensiv
 stance_group: Haltung der Rekruten
-stance_group_details: 'Anfängliche Rekrutenhaltung — Standard: Stellung halten (normal).'
 stance_normal: Stellung halten
 stance_start: Anfängliche Rekrutenhaltung
 tags.behavior: Verhalten
 tags.bugfixes: Fehlerkorrekturen
 terrain_speed: Gelände beeinflusst die Bewegungsgeschwindigkeit von Rekruten
-terrain_speed_details: Standardmäßig aktiviert.

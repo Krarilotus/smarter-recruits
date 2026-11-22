@@ -1,34 +1,22 @@
 bugfixes: Исправления
 debug_log: Записывать поведение новобранцев в журнал
-debug_log_details: По умолчанию отключено.
 fight_on_the_way: Новобранцы в оборонительной и агрессивной стойке сражаются по пути
-fight_on_the_way_details: По умолчанию включено.
 follow_changes: Новобранцы следуют за перенесённой точкой сбора до выделения
-follow_changes_details: По умолчанию включено.
 keep_new_orders: Новые приказы заменяют точку сбора
-keep_new_orders_details: По умолчанию включено.
 misc: Разное
 monks_fix: Монахи находят свободную клетку рядом с точкой сбора
-monks_fix_details: По умолчанию включено.
 qol: Удобство игры
 rally_buttons: Показывать кнопки точки сбора на портретах юнитов
-rally_buttons_details: По умолчанию включено.
 rally_group: Точки сбора новобранцев
 ride_on: Конные лучники продолжают скакать во время боя
-ride_on_details: По умолчанию включено.
 run_when_aggressive: Агрессивные новобранцы бегут, если могут
-run_when_aggressive_details: По умолчанию включено.
 shoot_on_the_way: Конные лучники стреляют по пути к точке сбора
-shoot_on_the_way_details: По умолчанию включено.
 stance_aggressive: Агрессивная
 stance_button: Показывать кнопки стойки (одиночная игра)
-stance_button_details: По умолчанию включено.
 stance_defensive: Оборонительная
 stance_group: Стойка новобранцев
-stance_group_details: 'Начальная стойка новобранцев — По умолчанию: Держать позицию (normal).'
 stance_normal: Держать позицию
 stance_start: Начальная стойка новобранцев
 tags.behavior: Поведение
 tags.bugfixes: Исправления
 terrain_speed: Местность влияет на скорость передвижения новобранцев
-terrain_speed_details: По умолчанию включено.
