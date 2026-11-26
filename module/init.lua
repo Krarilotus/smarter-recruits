@@ -1120,15 +1120,21 @@ local function installButtons(values, rallyOn, stanceOn)
     core.writeString(address, text)
     core.writeInteger(tables.tips + (index - 1) * 4, address)
   end
-  -- CR.TEX is loaded at afterInit. Reuse the text owner rather than a private encoder.
+  -- CR.TEX is loaded at afterInit; textResourceModifier picks the language and encodes the texts.
   hooks.registerHookCallback("afterInit", function()
-    local owner = modules.textResourceModifier
-    local language = owner:GetLanguage():lower()
-    local texts = require("messages")[language] or TIPS
-    local encoded = {}
-    for index, text in ipairs(texts) do
-      encoded[index] = owner:TransformText(text)
-      assert(not encoded[index]:match("^ERROR:"), "smarter-recruits: text encoding unavailable")
+    local ok, encoded = pcall(function()
+      local owner = modules.textResourceModifier
+      local texts = require("messages")[owner:GetLanguage():lower()] or TIPS
+      local result = {}
+      for index, text in ipairs(texts) do
+        result[index] = owner:TransformText(text)
+        if result[index]:match("^ERROR:") then error("text encoding unavailable", 0) end
+      end
+      return result
+    end)
+    if not ok then
+      log(WARNING, "keeping the English tooltips: " .. tostring(encoded))
+      return
     end
     for index, text in ipairs(encoded) do
       local address = core.allocate(#text + 1, true)
