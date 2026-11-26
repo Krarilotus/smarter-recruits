@@ -43,7 +43,6 @@ local DEFAULTS = {
   rally = { keep_new_orders = false, buttons = false, fight_on_the_way = false, follow_changes = false,
     run_when_aggressive = false, terrain_speed = false, monks_fix = false },
   stance = { button = false, start = "normal" },
-  debug = { log = false },
 }
 
 local STANCES = { normal = 0, defensive = 1, aggressive = 2 }
@@ -163,11 +162,9 @@ local UNIT_SHOOTING_VARIATION = 0x424
 
 local SKIRMISH_MODE = 0x63
 
--- updateUnits, where it decides whether a unit is due to look for enemies: the third operand
--- is the game's tick counter.
-local AOB_TICK_COUNTER = "8B 87 50 0A 00 00 8B 8F 98 09 00 00 8B 15 ? ? ? ?"
-local TICK_COUNTER_OPERAND = 14
-local DUMP_EVERY = 120                   -- three seconds at normal speed
+-- The game tick counter: mov ecx, [edi+0x998] / mov edx, [ticks] in updateUnits. The mask load
+-- before it is patched by other modules.
+local AOB_TICKS = "8B 8F 98 09 00 00 8B 15 I(? ? ? ?)"
 
 -- updateUnits, where it calls the unit's own update function:
 -- mov ecx,eax / imul ecx,ecx,0x490 / add ecx,esi / cmp word [ecx+logicalState],4 / je.
@@ -371,6 +368,12 @@ local function scan(pattern, purpose)
     error(MODULE_NAME .. ": could not find " .. purpose)
   end
   return address
+end
+
+local function tickCounter(feature)
+  local ok, _, ticks = pcall(utils.AOBExtract, AOB_TICKS)
+  if ok and ticks then return ticks end
+  log(WARNING, string.format("%s: game tick counter not found, %s stays off", MODULE_NAME, feature))
 end
 
 local function expectBytes(address, bytes, purpose)
@@ -748,11 +751,7 @@ local function patchFightOnTheWay(horseArcher, stanceRead, values, followChanges
     SLOTS = slots,
     RALLY_COUNTERS = core.readInteger(horseArcher + HA_RALLY_COUNT + 2) - HORSE_ARCHER_SLOT * 4,
     LOCAL_PLAYER = values.LOCAL_PLAYER,
-    DIAG = values.DIAG,
-    DIAG_ON = values.DIAG_ON,
     GAME_TICKS = values.GAME_TICKS,
-    DUMP = values.DUMP,
-    DUMP_EVERY = values.DUMP_EVERY,
     TRIBE_SIZE = core.readInteger(stanceRead + STANCE_READ_TRIBE_SIZE),
     TRIBE_STANCES = core.readInteger(stanceRead + STANCE_READ_OPERAND),
     TRIBE_COUNTS = core.readInteger(stanceRead + STANCE_READ_OPERAND) - values.STANCE_OFFSET + TRIBE_COUNT,
@@ -792,7 +791,7 @@ local function patchFightOnTheWay(horseArcher, stanceRead, values, followChanges
     for _, site in ipairs(rangedSites) do
       expectBytes(site, { 0x39 }, "the ranged units' walking stance test")
       local stub = assemble(templates.rangedWalkStance,
-        { MARKS = v.MARKS, MARK_COUNT = MARK_COUNT, DIAG = values.DIAG, RESUME = site + 7 },
+        { MARKS = v.MARKS, MARK_COUNT = MARK_COUNT, RESUME = site + 7 },
         originalBytes(site, 7))
       jumpTo(site, stub, 7)
     end
@@ -824,77 +823,6 @@ local function patchFightOnTheWay(horseArcher, stanceRead, values, followChanges
     end
     v.RESUME = after + UNIT_UPDATED_HOOK_SIZE
     jumpTo(after, assemble(templates.runWhenAggressive, v), UNIT_UPDATED_HOOK_SIZE)
-  end
-end
-
----A cdecl function with no arguments that runs `callback` in lua (UCP's own detour trick).
-local function luaFunction(purpose, callback)
-  local pad = core.allocateCode({ 0x90, 0x90, 0x90, 0x90, 0x90, 0xC3 })
-  local reported = false
-  core.detourCode(function(registers)
-    local ok, message = pcall(callback)
-    if not ok and not reported then
-      reported = true
-      log(WARNING, string.format("%s: %s failed: %s", MODULE_NAME, purpose, tostring(message)))
-    end
-    return registers
-  end, pad, 5)
-  return pad
-end
-
-local STATE_NAMES = { [0] = "idle0", [1] = "idle", [4] = "shoot", [0x65] = "walk", [0x69] = "rally",
-  [0x6A] = "melee", [0x6B] = "attack-building" }
-
----Writes what the module sees of the player's recruits to ucp3.log (diagnostics setting).
-local function makeDump(values, unitBase, tribes)
-  local unitsState = unitBase - UNITS_STATE_TO_UNITS
-  local lastCounters = ""
-  return function()
-    local localPlayer = core.readInteger(values.LOCAL_PLAYER)
-    local counters = string.format("let through %d, taken out of a shared group %d, stanced %d, "
-      .. "told to shoot on the way %d, ranged let through %d, sent back to the rally point %d, "
-      .. "stance put back %d, standing at the building %d, running %d",
-      core.readInteger(values.DIAG + 4), core.readInteger(values.DIAG + 24), core.readInteger(values.DIAG + 8),
-      core.readInteger(values.DIAG + 12), core.readInteger(values.DIAG + 16), core.readInteger(values.DIAG + 20),
-      core.readInteger(values.DIAG + 28), core.readInteger(values.DIAG + 32),
-      core.readInteger(values.DIAG + 36))
-    local lines = {}
-    local count = math.min(core.readInteger(unitsState), MARK_COUNT - 1)
-    for id = 1, count do
-      local u = unitBase + id * 0x490
-      if core.readSmallInteger(u + 0x8C) ~= 0 and core.readSmallInteger(u + UNIT_OWNER) == localPlayer then
-        local kind = core.readSmallInteger(u + 0x8E)
-        if RALLY_COMMANDS[kind] ~= nil then
-          local state = core.readSmallInteger(u + UNIT_STATE) & 0xFFFF
-          local marks = core.readByte(values.MARKS + id) & 0xFF
-          local goTo = core.readSmallInteger(u + UNIT_GO_TO_RALLY_POINT)
-          if state == 0x65 or state == 0x69 or marks ~= 0 or goTo ~= 0 then
-            local tribe = core.readSmallInteger(u + 0x2D8)
-            local stance = tribe > 0
-              and core.readSmallInteger(tribes.stances + tribe * tribes.size) or -1
-            lines[#lines + 1] = string.format("  unit %d type %d state %s(0x%X) moving %d group %d "
-              .. "stance %d marks %d free-to-react %d selected %d target %d", id, kind,
-              STATE_NAMES[state] or "?", state, core.readSmallInteger(u + 0xF6), tribe, stance, marks,
-              core.readSmallInteger(u + 0x3FC), core.readSmallInteger(u + 0x34),
-              core.readSmallInteger(u + 0x39C))
-            if #lines >= 25 then
-              break
-            end
-          end
-        end
-      end
-    end
-    if #lines == 0 and counters == lastCounters then
-      return
-    end
-    lastCounters = counters
-    log(INFO, string.format("%s diagnostics: tick %d, game mode 0x%X, player %d (network id %d), "
-      .. "recruit stance %d | %s", MODULE_NAME, core.readInteger(values.GAME_TICKS),
-      core.readInteger(values.GAME_MODE), localPlayer,
-      core.readInteger(values.NETWORK_IDS + localPlayer * 4), core.readByte(values.STANCE) & 0xFF, counters))
-    for _, line in ipairs(lines) do
-      log(INFO, line)
-    end
   end
 end
 
@@ -1225,7 +1153,6 @@ local function enable(self, config)
   end
 
   local state = core.allocate(16, true)
-  local diagnostics = setting(config, "debug", "log")
   core.writeByte(state, stanceButton and startStance or 0)
 
   local values = {
@@ -1256,17 +1183,8 @@ local function enable(self, config)
     MARKS = core.allocate(MARK_COUNT, true),
     FOLLOW_UIDS = core.allocate(MARK_COUNT * 4, true),
     MARK_COUNT = MARK_COUNT,
-    DIAG = core.allocate(48, true),
-    DIAG_ON = core.allocate(4, true),
-    DUMP_EVERY = DUMP_EVERY,
-    GAME_TICKS = core.readInteger(scan(AOB_TICK_COUNTER, "the tick counter") + TICK_COUNTER_OPERAND),
-    NETWORK_IDS = core.readInteger(newGroup + NEW_GROUP_PLAYER_CHECK + 3),
+    GAME_TICKS = stanceButton and fightOnTheWay and tickCounter("fightOnTheWay") or nil,
   }
-  core.writeByte(values.DIAG_ON, diagnostics and 1 or 0)
-  values.DUMP = luaFunction("the diagnostics", makeDump(values, unitBase, {
-    stances = core.readInteger(stanceRead + STANCE_READ_OPERAND),
-    size = core.readInteger(stanceRead + STANCE_READ_TRIBE_SIZE),
-  }))
 
   if shootOnTheWay then
     patchHorseArchers(horseArcher, values, rideOn)
@@ -1280,7 +1198,7 @@ local function enable(self, config)
   if monksFix then
     patchCathedralSearch()
   end
-  if stanceButton and fightOnTheWay then
+  if values.GAME_TICKS then
     patchFightOnTheWay(horseArcher, stanceRead, values, followChanges, runWhenAggressive)
   end
   if stanceButton then

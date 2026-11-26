@@ -1,9 +1,7 @@
 bugfixes: Hata düzeltmeleri
-debug_log: Yeni asker davranışlarını günlüğe yaz
 fight_on_the_way: Savunma ve saldırgan duruştaki yeni askerler yolda savaşır
 follow_changes: Yeni askerler seçilene kadar taşınan toplanma noktasını izler
 keep_new_orders: Yeni emirler toplanma hedefinin yerini alır
-misc: Diğer
 monks_fix: Keşişler toplanma noktası yakınında boş kare bulur
 qol: Yaşam kalitesi
 rally_buttons: Birim portrelerinde toplanma düğmelerini göster

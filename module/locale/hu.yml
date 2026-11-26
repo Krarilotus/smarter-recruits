@@ -1,9 +1,7 @@
 bugfixes: Hibajavítások
-debug_log: Újoncok viselkedésének naplózása
 fight_on_the_way: A védekező és támadó újoncok útközben harcolnak
 follow_changes: Az újoncok kijelölésig követik az áthelyezett gyülekezési pontot
 keep_new_orders: Az új parancsok felülírják a gyülekezési célt
-misc: Egyéb
 monks_fix: A szerzetesek szabad mezőt találnak a gyülekezési pont közelében
 qol: Kényelmi funkciók
 rally_buttons: Gyülekezési gombok megjelenítése az egységportrékon

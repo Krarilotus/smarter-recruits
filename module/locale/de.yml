@@ -1,9 +1,7 @@
 bugfixes: Fehlerkorrekturen
-debug_log: Rekrutenverhalten protokollieren
 fight_on_the_way: Defensive und aggressive Rekruten kämpfen unterwegs
 follow_changes: Rekruten folgen einem versetzten Sammelpunkt bis zur Auswahl
 keep_new_orders: Neue Befehle ersetzen das Sammelziel
-misc: Sonstiges
 monks_fix: Mönche suchen ein freies Feld nahe dem Sammelpunkt
 qol: Komfortfunktionen
 rally_buttons: Sammelpunktknöpfe auf Einheitenporträts anzeigen

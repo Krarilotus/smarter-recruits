@@ -1,9 +1,7 @@
 bugfixes: 错误修复
-debug_log: 记录新兵行为日志
 fight_on_the_way: 防御和进攻姿态的新兵沿途交战
 follow_changes: 新兵在被选中前跟随移动后的集合点
 keep_new_orders: 新命令取代集合点目标
-misc: 其他
 monks_fix: 僧侣在集合点附近寻找空地
 qol: 体验优化
 rally_buttons: 在单位头像上显示集合点按钮

@@ -104,14 +104,5 @@ options:
         text: '{{stance_defensive}}'
       - name: aggressive
         text: '{{stance_aggressive}}'
-- url: smarter-recruits.debug.log
-  name: smarter-recruits-debug-log
-  display: UCP2Switch
-  contents:
-    type: boolean
-    value: false
-  category:
-  - '{{misc}}'
-  header: '{{debug_log}}'
 meta:
   version: 1.0.0

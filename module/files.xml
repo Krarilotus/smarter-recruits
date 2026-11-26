@@ -1,4 +1,4 @@
-<config><files>
+<module><files>
   <file src="definition.yml" />
   <file src="images" />
   <file src="init.lua" />
@@ -8,4 +8,4 @@
   <file src="templates.lua" />
   <file src="messages.lua" />
   <file src="CREDITS.md" />
-</files></config>
+</files></module>

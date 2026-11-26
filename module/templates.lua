@@ -146,18 +146,6 @@ push eax
 push edx
 push ebx
 mov ebx,eax
-cmp byte [DIAG_ON],0
-je no_dump
-mov eax,[GAME_TICKS]
-sub eax,[DIAG]
-cmp eax,DUMP_EVERY
-jb no_dump
-mov eax,[GAME_TICKS]
-mov [DIAG],eax
-pushad
-call DUMP
-popad
-no_dump:
 cmp ebx,MARK_COUNT
 jae finish
 test byte [MARKS+ebx],1
@@ -186,7 +174,6 @@ movzx edx,byte [STANCE]
 cmp word [eax+TRIBE_STANCES],dx
 je stance_kept
 mov word [eax+TRIBE_STANCES],dx
-inc dword [DIAG+28]
 stance_kept:
 cmp word [ecx+U_LOGICAL],2
 jne busy
@@ -207,7 +194,6 @@ mov word [ecx+U_GO_TO_RALLY_POINT],1
 mov word [ecx+U_STATE],0
 mov word [ecx+U_RESUME_X],0
 mov word [ecx+U_RESUME_Y],0
-inc dword [DIAG+20]
 jmp finish
 busy:
 mov byte [IDLE+ebx],0
@@ -273,7 +259,6 @@ inc byte [STILL+ebx]
 jmp still_checked
 standing:
 mov word [ecx+U_FREE_TO_REACT],1
-inc dword [DIAG+32]
 still_checked:
 movsx edx,word [ecx+U_TYPE]
 cmp edx,80
@@ -305,7 +290,6 @@ push eax
 mov ecx,TRIBE_STATE
 call GIVE_TRIBE_INSTRUCTION
 pop ecx
-inc dword [DIAG+12]
 jmp finish
 unmark:
 and byte [MARKS+ebx],0xFD
@@ -355,7 +339,6 @@ mov eax,[RUN_SHEETS+edx*4]
 mov [ecx+U_ANIM_SHEET],eax
 movzx edx,byte [RUN_SPEEDS+edx]
 mov word [ecx+U_STATE_SPEED],dx
-inc dword [DIAG+36]
 done:
 pop edx
 pop ecx
@@ -431,7 +414,6 @@ duty_no:
 pop eax
 jmp not_ours
 ours:
-inc dword [DIAG+4]
 push ecx
 push edx
 push eax
@@ -452,7 +434,6 @@ push eax
 push dword [esp+0x1C]
 mov ecx,TRIBES
 call REMOVE_FROM_GROUP
-inc dword [DIAG+24]
 keep_group:
 pop eax
 pop edx
@@ -479,7 +460,6 @@ cmp ebx,MARK_COUNT
 jae not_ours
 test byte [MARKS+ebx],3
 je not_ours
-inc dword [DIAG+16]
 cmp ebx,ebx
 jmp RESUME
 not_ours:
@@ -509,7 +489,6 @@ cmp edx,[LOCAL_PLAYER]
 jne done
 movzx edx,byte [STANCE]
 mov word [ecx+STANCE_OFFSET],dx
-inc dword [DIAG+8]
 done:
 push eax
 mov eax,[esp+0x10]

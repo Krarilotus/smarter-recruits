@@ -1,9 +1,7 @@
 bugfixes: Corrections
-debug_log: Journaliser le comportement des recrues
 fight_on_the_way: Les recrues défensives et agressives combattent en chemin
 follow_changes: Les recrues suivent un point de ralliement déplacé jusqu'à leur sélection
 keep_new_orders: Les nouveaux ordres remplacent la destination de ralliement
-misc: Divers
 monks_fix: Les moines cherchent une case libre près du point de ralliement
 qol: Qualité de vie
 rally_buttons: Afficher les boutons de ralliement sur les portraits d'unités
