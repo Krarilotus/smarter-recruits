@@ -4,7 +4,7 @@ options:
   display: UCP2Switch
   contents:
     type: boolean
-    value: true
+    value: false
   category:
   - '{{bugfixes}}'
   header: '{{shoot_on_the_way}}'
@@ -19,28 +19,28 @@ options:
     display: UCP2Switch
     contents:
       type: boolean
-      value: true
+      value: false
     header: '{{keep_new_orders}}'
   - url: smarter-recruits.rally.terrain_speed
     name: smarter-recruits-rally-terrain-speed
     display: UCP2Switch
     contents:
       type: boolean
-      value: true
+      value: false
     header: '{{terrain_speed}}'
   - url: smarter-recruits.rally.monks_fix
     name: smarter-recruits-rally-monks-fix
     display: UCP2Switch
     contents:
       type: boolean
-      value: true
+      value: false
     header: '{{monks_fix}}'
 - url: smarter-recruits.horse_archers.ride_on
   name: smarter-recruits-horse-archers-ride-on
   display: UCP2Switch
   contents:
     type: boolean
-    value: true
+    value: false
   category:
   - '{{qol}}'
   header: '{{ride_on}}'
@@ -55,28 +55,28 @@ options:
     display: UCP2Switch
     contents:
       type: boolean
-      value: true
+      value: false
     header: '{{fight_on_the_way}}'
   - url: smarter-recruits.rally.follow_changes
     name: smarter-recruits-rally-follow-changes
     display: UCP2Switch
     contents:
       type: boolean
-      value: true
+      value: false
     header: '{{follow_changes}}'
   - url: smarter-recruits.rally.run_when_aggressive
     name: smarter-recruits-rally-run-when-aggressive
     display: UCP2Switch
     contents:
       type: boolean
-      value: true
+      value: false
     header: '{{run_when_aggressive}}'
   - url: smarter-recruits.rally.buttons
     name: smarter-recruits-rally-buttons
     display: UCP2Switch
     contents:
       type: boolean
-      value: true
+      value: false
     header: '{{rally_buttons}}'
 - display: GroupBox
   category:
@@ -89,7 +89,7 @@ options:
     display: UCP2Switch
     contents:
       type: boolean
-      value: true
+      value: false
     header: '{{stance_button}}'
   - url: smarter-recruits.stance.start
     name: smarter-recruits-stance-start

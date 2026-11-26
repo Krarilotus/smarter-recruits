@@ -7,42 +7,34 @@ config-sparse:
         horse_archers:
           shoot_on_the_way:
             contents:
-              value: true
+              suggested-value: true
           ride_on:
             contents:
-              value: true
+              suggested-value: true
         rally:
           keep_new_orders:
             contents:
-              value: true
+              suggested-value: true
           terrain_speed:
             contents:
-              value: true
+              suggested-value: true
           monks_fix:
             contents:
-              value: true
+              suggested-value: true
           fight_on_the_way:
             contents:
-              value: true
+              suggested-value: true
           follow_changes:
             contents:
-              value: true
+              suggested-value: true
           run_when_aggressive:
             contents:
-              value: true
+              suggested-value: true
           buttons:
             contents:
-              value: true
+              suggested-value: true
         stance:
           button:
             contents:
-              value: true
-          start:
-            contents:
-              value: normal
-        debug:
-          log:
-            contents:
-              value: false
+              suggested-value: true
   plugins: {}
-  load-order: []

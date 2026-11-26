@@ -39,10 +39,10 @@ local MODULE_NAME = "smarter-recruits"
 local MODULE_FOLDERS = { "ucp/modules/smarter-recruits/" }   -- UCP maps this to the active version
 
 local DEFAULTS = {
-  horse_archers = { shoot_on_the_way = true, ride_on = true },
-  rally = { keep_new_orders = true, buttons = true, fight_on_the_way = true, follow_changes = true,
-    run_when_aggressive = true, terrain_speed = true, monks_fix = true },
-  stance = { button = true, start = "normal" },
+  horse_archers = { shoot_on_the_way = false, ride_on = false },
+  rally = { keep_new_orders = false, buttons = false, fight_on_the_way = false, follow_changes = false,
+    run_when_aggressive = false, terrain_speed = false, monks_fix = false },
+  stance = { button = false, start = "normal" },
   debug = { log = false },
 }
 

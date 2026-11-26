@@ -1,0 +1,16 @@
+name: smarter-recruits-recommended
+display-name: Smarter Recruits Recommended
+author: Monsterfish
+version: 1.0.0
+type: plugin
+game:
+- SHC==1.41
+- SHCE==1.41
+family:
+- name: smarter-recruits
+meta:
+  version: 1.0.0
+dependencies:
+  framework: '>=3.0.7'
+  frontend: '>=1.0.17 <2.0.0'
+  smarter-recruits: ^1.0.12

@@ -1,5 +1,4 @@
 <config><files>
-  <file src="config.yml" />
   <file src="definition.yml" />
   <file src="images" />
   <file src="init.lua" />

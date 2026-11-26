@@ -1,7 +1,6 @@
 # Smarter Recruits
 
 **Author**: Monsterfish
-**Version**: 1.0.11
 
 Small fixes and buttons for the troops you recruit. Every part can be switched off in the
 settings.
@@ -87,3 +86,10 @@ like the button with `_alpha` at the end, for example `rally_alpha.png` - white 
 black is see-through, grey is in between. For a different picture while the mouse is over a button, add a file of the same size
 named like the button with `_hover` at the end, for example `rally_hover.png`. Without one
 the button is drawn a little brighter. Restart the game after changing a picture.
+
+## Vanilla and Recommended
+
+Every option of the module is off by default, so the module alone plays like the original
+game. Two plugins in this repository form the Smarter Recruits family in the launcher:
+`smarter-recruits-recommended` (offered first) switches on the recommended settings, `smarter-recruits-vanilla`
+keeps everything off. Plugins that build on the module set the options they need themselves.

@@ -1,0 +1,20 @@
+name: smarter-recruits-vanilla
+display-name: Smarter Recruits Vanilla
+author: Monsterfish
+version: 1.0.0
+type: plugin
+game:
+- SHC==1.41
+- SHCE==1.41
+family:
+- name: smarter-recruits
+  root: true
+  members:
+  - smarter-recruits-recommended
+  default: smarter-recruits-recommended
+meta:
+  version: 1.0.0
+dependencies:
+  framework: '>=3.0.7'
+  frontend: '>=1.0.17 <2.0.0'
+  smarter-recruits: ^1.0.12
