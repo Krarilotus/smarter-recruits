@@ -263,14 +263,17 @@ local TYPE_BLOCK = 0x64
 local TYPE_LAST = 0x66
 local MOUSE_LEFT_CLICK = 0x34            -- set for the frame in which the left button went down
 
--- Each building's portrait group is found by its first member: (x, y, unit type). The
--- member before it is the group header.
+-- Each building's portrait group is identified by its first member's position and unit.
+local BUILDING_MENU = {
+  "68 ? ? ? ? B9 ? ? ? ? E8 81 93 F5 FF C3 68 ? ? ? ? B9 ? ? ? ? E8 71 93 F5 FF C3",
+  "68 ? ? ? ? B9 ? ? ? ? E8 E1 92 F5 FF C3 68 ? ? ? ? B9 ? ? ? ? E8 D1 92 F5 FF C3",
+}
 local BUILDINGS = {
-  { name = "barracks", x = 86, y = 433, unit = 24 },
-  { name = "mercenary post", x = 15, y = 442, unit = 70 },
-  { name = "engineer's guild", x = 260, y = 491, unit = 30 },
-  { name = "cathedral", x = 260, y = 481, unit = 37 },
-  { name = "tunneler's guild", x = 260, y = 486, unit = 5 },
+  { name = "barracks", x = 86, y = 433, units = { 24, 25, 22, 23, 26, 27, 28 } },
+  { name = "mercenary post", x = 15, y = 442, units = { 70, 71, 72, 73, 74, 75, 76 } },
+  { name = "engineer's guild", x = 260, y = 491, units = { 30, 29 } },
+  { name = "cathedral", x = 260, y = 481, units = { 37 } },
+  { name = "tunneler's guild", x = 260, y = 486, units = { 5 } },
 }
 
 -- What each unit's number key sends in its building: the command that makes the next map
@@ -861,49 +864,59 @@ local function prepareNewGroups(newGroup, values, unitBase, tribes, stanceRead)
   end
 end
 
----Finds every recruit portrait, the group header it belongs to, and the first item of its
----menu block (an every-frame item, which the game runs before the portraits).
 local function findPortraits()
+  local constructor = scan(BUILDING_MENU[data.version.isExtreme() and 2 or 1], "the building menu initializer")
+  local start, menu = core.readInteger(constructor + 1), core.readInteger(constructor + 6)
+  local imageStart, imageEnd = ucp.internal.getMainImageRange()
+  local lastRow = imageEnd - ITEM_SIZE + 1
+  if start < imageStart or start > lastRow or core.readInteger(start + ITEM_TYPE) ~= TYPE_EVERY_FRAME
+      or menu < imageStart or menu > imageEnd - 3 then
+    error("the building menu initializer has invalid operands", 0)
+  end
+  local descriptors, first, endItem = {}, nil, nil
+  for item = start, math.min(lastRow, start + 399 * ITEM_SIZE), ITEM_SIZE do
+    local kind = core.readInteger(item + ITEM_TYPE)
+    if kind == TYPE_LAST then
+      endItem = item
+      break
+    end
+    if kind == TYPE_BLOCK then
+      first = item + ITEM_SIZE
+    elseif kind == (TYPE_MEMBER | 3) then
+      local unit = core.readInteger(item + ITEM_PARAM)
+      for _, building in ipairs(BUILDINGS) do
+        if unit == building.units[1] and core.readInteger(item + ITEM_X) == building.x
+            and core.readInteger(item + ITEM_Y) == building.y then
+          if descriptors[unit] then error("the building menu has duplicate " .. building.name .. " portraits", 0) end
+          descriptors[unit] = { header = item - ITEM_SIZE, first = first, members = {} }
+        end
+      end
+    end
+  end
+  if not endItem then error("the building menu has no end marker", 0) end
+
   local found = {}
   for _, building in ipairs(BUILDINGS) do
-    local pattern = {}
-    for _, value in ipairs({ TYPE_MEMBER | 3, building.x, building.y, 0, 0 }) do
-      for _, byte in ipairs(core.itob(value)) do
-        pattern[#pattern + 1] = string.format("%02X", byte & 0xFF)
-      end
+    local group = descriptors[building.units[1]]
+    local problem = "the " .. building.name .. " portraits could not be verified in the building menu"
+    if not group or not group.first or group.header <= group.first
+        or core.readInteger(group.first + ITEM_TYPE) ~= TYPE_EVERY_FRAME
+        or core.readInteger(group.header + ITEM_TYPE) ~= TYPE_GROUP then
+      error(problem, 0)
     end
-    pattern[#pattern + 1] = "? ? ? ?"
-    for _, byte in ipairs(core.itob(building.unit)) do
-      pattern[#pattern + 1] = string.format("%02X", byte & 0xFF)
+    local nextItem = group.header + (#building.units + 1) * ITEM_SIZE
+    if nextItem > endItem or (core.readInteger(nextItem + ITEM_TYPE) & TYPE_MEMBER) ~= 0 then
+      error(problem, 0)
     end
-    local member = core.AOBScan(table.concat(pattern, " "))
-    if member == nil then error("the " .. building.name .. " portraits were not found", 0) end
-    local header = member - ITEM_SIZE
-    if core.readInteger(header + ITEM_TYPE) ~= TYPE_GROUP then
-      error(MODULE_NAME .. ": the " .. building.name .. " portraits are not the ones this module knows")
-    end
-    local first, limit = header, 40
-    while core.readInteger(first - ITEM_SIZE + ITEM_TYPE) ~= TYPE_BLOCK and limit > 0 do
-      first = first - ITEM_SIZE
-      limit = limit - 1
-    end
-    if limit == 0 or core.readInteger(first + ITEM_TYPE) ~= TYPE_EVERY_FRAME then
-      error(MODULE_NAME .. ": the " .. building.name .. " menu is not the one this module knows")
-    end
-    local group = { building = building, header = header, first = first, members = {} }
-    local item = header + ITEM_SIZE
-    while (core.readInteger(item + ITEM_TYPE) & TYPE_MEMBER) ~= 0 do
-      local unit = core.readInteger(item + ITEM_PARAM)
-      if RALLY_COMMANDS[unit] == nil or PLACES[unit] == nil then
-        error(string.format("%s: unexpected unit type %d among the %s portraits", MODULE_NAME,
-          unit, building.name))
-      end
-      group.members[#group.members + 1] = item
-      item = item + ITEM_SIZE
+    for index, unit in ipairs(building.units) do
+      local item = group.header + index * ITEM_SIZE
+      if core.readInteger(item + ITEM_TYPE) ~= (TYPE_MEMBER | 3)
+          or core.readInteger(item + ITEM_PARAM) ~= unit then error(problem, 0) end
+      group.members[index] = item
     end
     found[#found + 1] = group
   end
-  return found
+  return found, menu
 end
 
 -- writeCodeInteger: the static table lies in the exe image, which may be write protected.
@@ -921,7 +934,7 @@ local function wrapLiveMenu(menu, wrappers)
     return
   end
   local item, limit, first = items, 4000, nil
-  while core.readInteger(item + ITEM_TYPE) ~= TYPE_LAST and limit > 0 do
+  while limit > 0 and core.readInteger(item + ITEM_TYPE) ~= TYPE_LAST do
     local kind = core.readInteger(item + ITEM_TYPE)
     if kind == TYPE_BLOCK then
       first = item + ITEM_SIZE
@@ -948,7 +961,7 @@ local function writePlace(address, place)
 end
 
 local function installButtons(values, rallyOn, stanceOn)
-  local groups = findPortraits()
+  local groups, menu = findPortraits()
 
   local rally, rallyHover = buttonPictures("rally")
   local stancePictures = {}
@@ -1094,20 +1107,6 @@ local function installButtons(values, rallyOn, stanceOn)
   wrappers.render = assemble(templates.renderPortrait, v)
   wrappers.frame = assemble(templates.frameClick, v)
 
-  -- The menu itself, in case it already uses another copy of the items, and again after
-  -- every module has started (the ui module copies menus it adds items to).
-  local tableStart = groups[1].header
-  local limit = 400
-  while core.readInteger(tableStart - ITEM_SIZE + ITEM_TYPE) ~= TYPE_LAST and limit > 0 do
-    tableStart = tableStart - ITEM_SIZE
-    limit = limit - 1
-  end
-  local startBytes = {}
-  for _, byte in ipairs(core.itob(tableStart)) do
-    startBytes[#startBytes + 1] = string.format("%02X", byte & 0xFF)
-  end
-  local constructorSite, reason = core.AOBScanUnique("68 " .. table.concat(startBytes, " ") .. " B9")
-
   -- The static item table: covers a menu built after this point. The members' own render
   -- is 0 there (the Menu constructor fills it from the header, but only where it is 0), or
   -- already the header's if the menu has been built.
@@ -1118,18 +1117,18 @@ local function installButtons(values, rallyOn, stanceOn)
     setField(group.first, ITEM_ACTION, wrappers.frame)
   end
 
-  if constructorSite ~= nil then
-    local menu = core.readInteger(constructorSite + 6)
-    wrapLiveMenu(menu, wrappers)
-    hooks.registerHookCallback("afterInit", function()
-      wrapLiveMenu(menu, wrappers)
-    end)
-  else
-    log(ERROR, "Live recruit menu refresh is off: the building menu constructor " .. reason)
+  -- The UI module can copy menu items before or after this module installs its buttons.
+  local function refresh()
+    return installFeature("Live recruit menu refresh", function() wrapLiveMenu(menu, wrappers) end)
   end
+  if refresh() then hooks.registerHookCallback("afterInit", refresh) end
 end
 
 local function enable(self, config)
+  if config ~= nil and type(config) ~= "table" then
+    log(ERROR, MODULE_NAME .. ": invalid settings type. Using defaults.")
+    return
+  end
   config = config or {}
   local shootOnTheWay = setting(config, "horse_archers", "shoot_on_the_way")
   local keepNewOrders = setting(config, "rally", "keep_new_orders")
