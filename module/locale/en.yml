@@ -1,20 +1,31 @@
 bugfixes: Bugfixes
-fight_on_the_way: Defensive and aggressive recruits fight on the way
-follow_changes: Recruits follow a moved rally point until selected
-keep_new_orders: New orders replace the rally destination
-monks_fix: Monks find a free tile near their rally point
+fight_on_the_way: Recruits can fight on the way
+follow_changes: Unselected recruits follow moved rally points
+keep_new_orders: New orders replace the rally order
+monks_fix: Monks find a free spot near the rally point
 qol: Quality of Life
-rally_buttons: Show rally buttons on unit portraits
+rally_buttons: Rally buttons on recruit portraits
 rally_group: Recruit rally points
-ride_on: Horse archers keep riding while fighting
+ride_on: Horse archers keep riding as they shoot
 run_when_aggressive: Aggressive recruits run when able
-shoot_on_the_way: Horse archers shoot while going to their rally point
+shoot_on_the_way: Horse archers fire on the way to rally points
 stance_aggressive: Aggressive
-stance_button: Show stance buttons (single player)
+stance_button: Recruit stance button (single player)
 stance_defensive: Defensive
 stance_group: Recruit stance
 stance_normal: Stand ground
-stance_start: Initial recruit stance
+stance_start: Starting recruit stance
 tags.behavior: Behavior
 tags.bugfixes: Bug fixes
-terrain_speed: Terrain affects recruits' movement speed
+terrain_speed: Recruits use terrain movement speeds
+shoot_on_the_way_tooltip: Horse archers can shoot enemies while heading to a rally point.
+ride_on_tooltip: Horse archers continue their move while firing.
+horse_archers_group: Horse archers
+keep_new_orders_tooltip: Recruits follow new orders given on the way to their rally point.
+terrain_speed_tooltip: Terrain affects walking speed on the way to rally points.
+monks_fix_tooltip: Monks can use a nearby free tile when their rally point is occupied.
+follow_changes_tooltip: Recruits already on their way follow a moved rally point until selected.
+rally_buttons_tooltip: At a recruitment building, click a recruit’s rally icon and then click the destination on the map.
+run_when_aggressive_tooltip: Aggressive recruits run on the way when their unit type can run.
+fight_on_the_way_tooltip: Defensive and Aggressive recruits can fight while heading to their rally point.
+stance_button_tooltip: Click the stance icon at a recruitment building to cycle the stance of new recruits.

@@ -1,3 +1,3 @@
 # Smarter Recruits
 
-Fixes recruits ignoring new orders and improves their rally-point behavior. Adds rally-point and stance buttons to recruitment buildings.
+Keep rally orders responsive while recruits head to their posts. At a recruitment building, click a recruit’s rally icon and choose a destination. The stance button cycles how new recruits behave in single player.
