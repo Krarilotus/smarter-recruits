@@ -229,7 +229,6 @@ local RANGED_WALK_CHECKS = {
   { pattern = "75 0F 8B 4C 24 10 39 ? 8D ? ? ? ? 75", offset = 6, count = 3 },
   { pattern = "66 39 ? ? ? ? ? 75 ? 39 ? AD ? ? ? ? 75", offset = 9, count = 2 },
 }
-local RANGED_WALK_CHECK_COUNT = 5
 -- After the first of those tests (the archer's): the walking state's own "shoot at what is in
 -- range" - fixedRng, UnitsState, acquireShootTarget(unit), shootTargetedUnit, TribesState,
 -- giveTribeAnInstruction(group, what, target, uid, 0).
@@ -363,18 +362,18 @@ local PICTURES = {
 ---------------------------------------------------------------------------------------
 
 local function scan(pattern, purpose)
-  local ok, address = pcall(core.AOBScan, pattern)
-  if not ok or address == nil then
-    error(MODULE_NAME .. ": could not find " .. purpose)
-  end
+  local address, reason = core.AOBScanUnique(pattern)
+  if address == nil then error(purpose .. " " .. reason, 0) end
   return address
 end
 
-local function tickCounter(feature)
-  local site, problem = core.AOBScanUnique(AOB_TICKS)
-  if site then return core.readInteger(site + 8) end
-  log(ERROR, "Fighting on the way to rally points is off. The game tick counter could not be read.")
-  log(WARNING, string.format("%s: game tick counter %s, %s stays off", MODULE_NAME, problem, feature))
+local function installFeature(name, install)
+  local ok, result = pcall(install)
+  if not ok then
+    log(ERROR, name .. " is off: " .. tostring(result))
+    return false
+  end
+  return true, result
 end
 
 local function expectBytes(address, bytes, purpose)
@@ -434,10 +433,15 @@ end
 
 local function setting(config, group, name)
   local section = config[group]
-  if type(section) == "table" and section[name] ~= nil then
-    return section[name]
+  local default = DEFAULTS[group][name]
+  local value = type(section) == "table" and section[name]
+  if (section ~= nil and type(section) ~= "table")
+      or (type(section) == "table" and value ~= nil and type(value) ~= type(default)) then
+    log(ERROR, MODULE_NAME .. ": invalid " .. group .. "." .. name .. " setting type.")
+    return default
   end
-  return DEFAULTS[group][name]
+  if type(section) == "table" and value ~= nil then return value end
+  return default
 end
 
 ---------------------------------------------------------------------------------------
@@ -594,26 +598,28 @@ local function patchHorseArchers(horseArcher, values, rideOn)
   -- Walking: point the "not there yet" jump at the shoot-on-the-move code.
   local walking = assemble(templates.horseArcherWalking, v)
   local jumpAt = horseArcher + HA_WALKING_JUMP
-  core.writeCode(jumpAt + 2, { core.itob(core.getRelativeAddress(jumpAt, walking, -6)) })
 
   -- At the rally point, between the 40 tick checks.
   v.REPATH = horseArcher + HA_REPATH
   local atRally = assemble(rideOn and templates.horseArcherKeepRiding or templates.horseArcherAtRallyPoint,
     v, originalBytes(horseArcher + HA_AT_RALLY, HA_AT_RALLY_REPLAYED))
-  jumpTo(horseArcher + HA_AT_RALLY, atRally, HA_AT_RALLY_SIZE)
+
+  local noChase
 
   -- No chasing enemies by stance on the way, for the player's horse archers.
   if rideOn then
     v.RESUME = horseArcher + HA_FREE_TO_REACT + HA_FREE_TO_REACT_SIZE
-    local noChase = assemble(templates.horseArcherNoChase, v,
+    noChase = assemble(templates.horseArcherNoChase, v,
       originalBytes(horseArcher + HA_FREE_TO_REACT, HA_FREE_TO_REACT_SIZE))
-    jumpTo(horseArcher + HA_FREE_TO_REACT, noChase, HA_FREE_TO_REACT_SIZE)
     v.RESUME = horseArcher + HA_DO_SHOOTING
   end
 
   -- Shooting without a chosen shot.
   local shooting = assemble(templates.horseArcherShootingState, v,
     originalBytes(horseArcher + HA_SHOOTING_STATE, HA_SHOOTING_STATE_SIZE))
+  core.writeCode(jumpAt + 2, { core.itob(core.getRelativeAddress(jumpAt, walking, -6)) })
+  jumpTo(horseArcher + HA_AT_RALLY, atRally, HA_AT_RALLY_SIZE)
+  if noChase then jumpTo(horseArcher + HA_FREE_TO_REACT, noChase, HA_FREE_TO_REACT_SIZE) end
   jumpTo(horseArcher + HA_SHOOTING_STATE, shooting, HA_SHOOTING_STATE_SIZE)
 end
 
@@ -650,10 +656,7 @@ local function patchRallySpeed(unitBase)
     return (modrm & 0xC7) == 0x86 -- [esi + disp32] with ax/cx/dx/bx...
   end)
   if #sites ~= RALLY_SPEED_STORES then
-    log(ERROR, "Terrain slowdown for recruits heading to rally points is off.")
-    log(WARNING, string.format("%s: found %d of the %d rally speed stores; terrain still does not "
-      .. "slow recruits on the way to their rally point", MODULE_NAME, #sites, RALLY_SPEED_STORES))
-    return
+    error(string.format("found %d of %d rally speed stores", #sites, RALLY_SPEED_STORES), 0)
   end
   for _, site in ipairs(sites) do
     core.writeCode(site, { 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90 })
@@ -668,21 +671,14 @@ local CATHEDRAL_LOOP_SIZE = 18           -- / movsx edi, word [table + 3*4] (7)
 local CATHEDRAL_FIXED_ENTRY = 3
 
 local function patchCathedralSearch()
-  local ok, search = pcall(core.AOBScan, AOB_CATHEDRAL_SEARCH)
-  if not ok or search == nil then
-    log(ERROR, "The monks' rally point fix is off. The rally point search could not be verified.")
-    log(WARNING, MODULE_NAME .. ": could not find the monks' rally point search; not fixed")
-    return
-  end
+  local search = scan(AOB_CATHEDRAL_SEARCH, "the monks' rally point search")
   local site = search + CATHEDRAL_LOOP
   expectBytes(site, { 0x0F, 0xBF, 0x35 }, "the monks' rally point search")
   expectBytes(site + 7, { 0x03, 0x74, 0x24, 0x14, 0x0F, 0xBF, 0x3D }, "the monks' rally point search")
   local y = core.readInteger(site + 3) - CATHEDRAL_FIXED_ENTRY * 4
   local x = core.readInteger(site + 14) - CATHEDRAL_FIXED_ENTRY * 4
   if x ~= y - 2 then
-    log(ERROR, "The monks' rally point fix is off. The rally point search could not be verified.")
-    log(WARNING, MODULE_NAME .. ": the monks' rally point search is not the one this module knows")
-    return
+    error("the monks' rally point search has unexpected tile offsets", 0)
   end
   local stub = assemble(templates.cathedralSearch, {
     OFFSETS_Y = y, OFFSETS_X = x, RESUME = site + CATHEDRAL_LOOP_SIZE,
@@ -762,47 +758,45 @@ local function patchFightOnTheWay(horseArcher, stanceRead, values, followChanges
     RESUME = site + UNIT_UPDATE_HOOK_SIZE,
   }
   -- The ranged units' "stop and shoot while walking" test, in five update functions.
-  local rangedSites = {}
-  for _, form in ipairs(RANGED_WALK_CHECKS) do
-    local sites = findSites(form.pattern, form.count)
-    if #sites ~= form.count then
-      rangedSites = {}
-      break
+  local rangedOn, rangedPatches = installFeature("Ranged recruits firing on the way to rally points", function()
+    local rangedSites = {}
+    for _, form in ipairs(RANGED_WALK_CHECKS) do
+      local sites = findSites(form.pattern, form.count)
+      if #sites ~= form.count then
+        error(string.format("found %d of %d walking stance tests", #sites, form.count), 0)
+      end
+      for _, address in ipairs(sites) do
+        rangedSites[#rangedSites + 1] = address + form.offset
+      end
     end
-    for _, site in ipairs(sites) do
-      rangedSites[#rangedSites + 1] = site + form.offset
-    end
-  end
-  if #rangedSites == RANGED_WALK_CHECK_COUNT then
+    local ranged = {}
     local first = rangedSites[1]
     local function operand(spec, purpose)
       expectBytes(first + spec.at, spec.bytes, purpose)
       return core.readInteger(first + spec.at + #spec.bytes)
     end
     local unitsState = operand(WALK_SHOT.unitsState, "the units")
-    v.UNITS_STATE = unitsState
-    v.U_RNG = operand(WALK_SHOT.rng, "the units' random number") - unitsState
-    v.U_SHOOT_TARGET = operand(WALK_SHOT.target, "the shooting target") - unitsState
-    if v.U_RNG ~= field(WALK_SHOT.rng.field) or v.U_SHOOT_TARGET ~= field(WALK_SHOT.target.field) then
+    ranged.UNITS_STATE = unitsState
+    ranged.U_RNG = operand(WALK_SHOT.rng, "the units' random number") - unitsState
+    ranged.U_SHOOT_TARGET = operand(WALK_SHOT.target, "the shooting target") - unitsState
+    if ranged.U_RNG ~= field(WALK_SHOT.rng.field) or ranged.U_SHOOT_TARGET ~= field(WALK_SHOT.target.field) then
       error(MODULE_NAME .. ": the ranged units' walking state is not the one this module knows")
     end
-    v.TRIBE_STATE = operand(WALK_SHOT.tribeState, "the groups")
-    v.ACQUIRE_SHOOT_TARGET = readCallTarget(first, WALK_SHOT.acquire, "the target search")
-    v.GIVE_TRIBE_INSTRUCTION = readCallTarget(first, WALK_SHOT.instruction, "the group orders")
-    for _, unit in ipairs(SHOOTS_ON_THE_WAY) do
-      core.writeByte(shoots + unit, 1)
+    ranged.TRIBE_STATE = operand(WALK_SHOT.tribeState, "the groups")
+    ranged.ACQUIRE_SHOOT_TARGET = readCallTarget(first, WALK_SHOT.acquire, "the target search")
+    ranged.GIVE_TRIBE_INSTRUCTION = readCallTarget(first, WALK_SHOT.instruction, "the group orders")
+    local patches = {}
+    for _, address in ipairs(rangedSites) do
+      expectBytes(address, { 0x39 }, "the ranged units' walking stance test")
+      patches[#patches + 1] = { address, assemble(templates.rangedWalkStance,
+        { MARKS = v.MARKS, MARK_COUNT = MARK_COUNT, RESUME = address + 7 },
+        originalBytes(address, 7)) }
     end
-    for _, site in ipairs(rangedSites) do
-      expectBytes(site, { 0x39 }, "the ranged units' walking stance test")
-      local stub = assemble(templates.rangedWalkStance,
-        { MARKS = v.MARKS, MARK_COUNT = MARK_COUNT, RESUME = site + 7 },
-        originalBytes(site, 7))
-      jumpTo(site, stub, 7)
-    end
-  else
-    log(ERROR, "Ranged recruits firing on the way to rally points is off.")
-    log(WARNING, string.format("%s: found %d of the %d ranged walking stance tests; ranged recruits "
-      .. "will not stop to shoot on the way", MODULE_NAME, #rangedSites, RANGED_WALK_CHECK_COUNT))
+    for key, value in pairs(ranged) do v[key] = value end
+    return patches
+  end)
+  if rangedOn then
+    for _, unit in ipairs(SHOOTS_ON_THE_WAY) do core.writeByte(shoots + unit, 1) end
   end
 
   if v.UNITS_STATE == nil then
@@ -812,26 +806,31 @@ local function patchFightOnTheWay(horseArcher, stanceRead, values, followChanges
   end
   core.writeByte(v.FOLLOW_ON, followChanges and 1 or 0)
   local stub = assemble(templates.fightOnTheWay, v, originalBytes(site, UNIT_UPDATE_HOOK_SIZE))
+  if rangedOn then
+    for _, patch in ipairs(rangedPatches) do jumpTo(patch[1], patch[2], 7) end
+  end
   jumpTo(site, stub, UNIT_UPDATE_HOOK_SIZE)
 
   if runWhenAggressive then
-    guard(updateSite, UNIT_UPDATED_GUARDS, "where a unit has been updated")
-    local after = updateSite + UNIT_UPDATED_HOOK
-    v.CURRENT_UNIT = core.readInteger(after + 1)
-    v.U_ANIM_SHEET = field(UNIT_ANIMATION_SHEET)
-    v.U_STATE_SPEED = field(UNIT_STATE_SPEED)
-    v.RUN_SHEETS = core.allocate(UNIT_TYPE_COUNT * 4, true)
-    v.RUN_SPEEDS = core.allocate(UNIT_TYPE_COUNT, true)
-    for unit, run in pairs(RUNS) do
-      core.writeInteger(v.RUN_SHEETS + unit * 4, run[1])
-      core.writeByte(v.RUN_SPEEDS + unit, run[2])
-    end
-    v.RESUME = after + UNIT_UPDATED_HOOK_SIZE
-    jumpTo(after, assemble(templates.runWhenAggressive, v), UNIT_UPDATED_HOOK_SIZE)
+    installFeature("Aggressive recruits running to rally points", function()
+      guard(updateSite, UNIT_UPDATED_GUARDS, "where a unit has been updated")
+      local after = updateSite + UNIT_UPDATED_HOOK
+      v.CURRENT_UNIT = core.readInteger(after + 1)
+      v.U_ANIM_SHEET = field(UNIT_ANIMATION_SHEET)
+      v.U_STATE_SPEED = field(UNIT_STATE_SPEED)
+      v.RUN_SHEETS = core.allocate(UNIT_TYPE_COUNT * 4, true)
+      v.RUN_SPEEDS = core.allocate(UNIT_TYPE_COUNT, true)
+      for unit, run in pairs(RUNS) do
+        core.writeInteger(v.RUN_SHEETS + unit * 4, run[1])
+        core.writeByte(v.RUN_SPEEDS + unit, run[2])
+      end
+      v.RESUME = after + UNIT_UPDATED_HOOK_SIZE
+      jumpTo(after, assemble(templates.runWhenAggressive, v), UNIT_UPDATED_HOOK_SIZE)
+    end)
   end
 end
 
-local function patchNewGroups(newGroup, values, unitBase, tribes, stanceRead)
+local function prepareNewGroups(newGroup, values, unitBase, tribes, stanceRead)
   guard(newGroup, NEW_GROUP_GUARDS, "the new group code")
   local v = {}
   for k, value in pairs(values) do v[k] = value end
@@ -855,10 +854,11 @@ local function patchNewGroups(newGroup, values, unitBase, tribes, stanceRead)
   v.RESUME = newGroup + NEW_GROUP_PLAYER_CHECK + NEW_GROUP_PLAYER_CHECK_SIZE
   local player = assemble(templates.newGroupPlayer, v,
     originalBytes(newGroup + NEW_GROUP_PLAYER_CHECK, NEW_GROUP_PLAYER_CHECK_SIZE))
-  jumpTo(newGroup + NEW_GROUP_PLAYER_CHECK, player, NEW_GROUP_PLAYER_CHECK_SIZE)
-
-  jumpTo(newGroup, entry, NEW_GROUP_ENTRY_SIZE)
-  jumpTo(newGroup + NEW_GROUP_STANCE_HOOK, stance, NEW_GROUP_STANCE_SIZE)
+  return function()
+    jumpTo(newGroup + NEW_GROUP_PLAYER_CHECK, player, NEW_GROUP_PLAYER_CHECK_SIZE)
+    jumpTo(newGroup, entry, NEW_GROUP_ENTRY_SIZE)
+    jumpTo(newGroup + NEW_GROUP_STANCE_HOOK, stance, NEW_GROUP_STANCE_SIZE)
+  end
 end
 
 ---Finds every recruit portrait, the group header it belongs to, and the first item of its
@@ -876,7 +876,8 @@ local function findPortraits()
     for _, byte in ipairs(core.itob(building.unit)) do
       pattern[#pattern + 1] = string.format("%02X", byte & 0xFF)
     end
-    local member = scan(table.concat(pattern, " "), "the " .. building.name .. " portraits")
+    local member = core.AOBScan(table.concat(pattern, " "))
+    if member == nil then error("the " .. building.name .. " portraits were not found", 0) end
     local header = member - ITEM_SIZE
     if core.readInteger(header + ITEM_TYPE) ~= TYPE_GROUP then
       error(MODULE_NAME .. ": the " .. building.name .. " portraits are not the ones this module knows")
@@ -1093,16 +1094,6 @@ local function installButtons(values, rallyOn, stanceOn)
   wrappers.render = assemble(templates.renderPortrait, v)
   wrappers.frame = assemble(templates.frameClick, v)
 
-  -- The static item table: covers a menu built after this point. The members' own render
-  -- is 0 there (the Menu constructor fills it from the header, but only where it is 0), or
-  -- already the header's if the menu has been built.
-  for _, group in ipairs(groups) do
-    for _, member in ipairs(group.members) do
-      setField(member, ITEM_RENDER, wrappers.render)
-    end
-    setField(group.first, ITEM_ACTION, wrappers.frame)
-  end
-
   -- The menu itself, in case it already uses another copy of the items, and again after
   -- every module has started (the ui module copies menus it adds items to).
   local tableStart = groups[1].header
@@ -1115,8 +1106,19 @@ local function installButtons(values, rallyOn, stanceOn)
   for _, byte in ipairs(core.itob(tableStart)) do
     startBytes[#startBytes + 1] = string.format("%02X", byte & 0xFF)
   end
-  local ok, constructorSite = pcall(core.AOBScan, "68 " .. table.concat(startBytes, " ") .. " B9")
-  if ok and constructorSite ~= nil then
+  local constructorSite = core.AOBScanUnique("68 " .. table.concat(startBytes, " ") .. " B9")
+
+  -- The static item table: covers a menu built after this point. The members' own render
+  -- is 0 there (the Menu constructor fills it from the header, but only where it is 0), or
+  -- already the header's if the menu has been built.
+  for _, group in ipairs(groups) do
+    for _, member in ipairs(group.members) do
+      setField(member, ITEM_RENDER, wrappers.render)
+    end
+    setField(group.first, ITEM_ACTION, wrappers.frame)
+  end
+
+  if constructorSite ~= nil then
     local menu = core.readInteger(constructorSite + 6)
     wrapLiveMenu(menu, wrappers)
     hooks.registerHookCallback("afterInit", function()
@@ -1131,86 +1133,125 @@ end
 local function enable(self, config)
   config = config or {}
   local shootOnTheWay = setting(config, "horse_archers", "shoot_on_the_way")
-  local rideOn = shootOnTheWay and setting(config, "horse_archers", "ride_on")
   local keepNewOrders = setting(config, "rally", "keep_new_orders")
   local rallyButtons = setting(config, "rally", "buttons")
   local stanceButton = setting(config, "stance", "button")
-  local fightOnTheWay = setting(config, "rally", "fight_on_the_way")
-  local followChanges = setting(config, "rally", "follow_changes")
-  local runWhenAggressive = setting(config, "rally", "run_when_aggressive")
   local terrainSpeed = setting(config, "rally", "terrain_speed")
   local monksFix = setting(config, "rally", "monks_fix")
-  local startStance = STANCES[setting(config, "stance", "start")] or 0
-
-  local horseArcher = scan(AOB_HORSE_ARCHER, "the horse archer's update")
-  local newGroup = scan(AOB_NEW_GROUP, "the new group code")
-  local unitBase = core.readInteger(newGroup + NEW_GROUP_OWNER_OPERAND) - UNIT_OWNER
-  local tribes = core.readInteger(horseArcher + HA_TRIBES_OPERAND)
-  local stanceRead = scan(AOB_STANCE_READ, "where a stance is read")
-  local toolbar = scan(AOB_TOOLBAR, "the recruiting buildings' key handler") - TOOLBAR_PATTERN_OFFSET
-  local nameBox = scan(AOB_NAME_BOX, "the game's menu drawing")
-  local menuItem = scan(AOB_MENU_ITEM, "the menu item handler")
-  local drawColourBox = readCallTarget(nameBox, NAME_BOX_DRAW_COLOUR_BOX, "the box drawing")
-
-  expectBytes(horseArcher + HA_STATE_OPERAND - 3, { 0x0F, 0xBF, 0x86 }, "the horse archer's state")
-  if core.readInteger(horseArcher + HA_STATE_OPERAND) ~= unitBase + UNIT_STATE then
-    error(MODULE_NAME .. ": the unit layout is not the one this module knows")
+  if not (shootOnTheWay or keepNewOrders or rallyButtons or stanceButton or terrainSpeed or monksFix) then
+    return
   end
 
-  local state = core.allocate(16, true)
-  core.writeByte(state, stanceButton and startStance or 0)
-
-  local values = {
-    STANCE = state,
-    RALLY_ON = state + 1,
-    GO_TO_RALLY_POINT = unitBase + UNIT_GO_TO_RALLY_POINT,
-    OWNER = unitBase + UNIT_OWNER,
-    SHOOTING_VARIATION = unitBase + UNIT_SHOOTING_VARIATION,
-    GAME_MODE = core.readInteger(newGroup + NEW_GROUP_MODE_OPERAND),
-    STANCE_OFFSET = core.readInteger(stanceRead + STANCE_READ_OPERAND) - tribes,
-    LOCAL_PLAYER = readOperand(toolbar, TOOLBAR_LOCAL_PLAYER, "the local player"),
-    TOOLBAR_BUTTON = toolbar,
-    CLICK_SOUND = readOperand(toolbar, TOOLBAR_SOUND_ID, "the click sound"),
-    SOUNDS = readOperand(toolbar, TOOLBAR_SOUNDS, "the sound player"),
-    PLAY_SOUND = readCallTarget(toolbar, TOOLBAR_PLAY_SOUND, "the sound player"),
-    BUTTON_X = readOperand(nameBox, NAME_BOX.itemX, "the item position"),
-    BUTTON_Y = readOperand(nameBox, NAME_BOX.itemY, "the item position"),
-    BUTTON_W = readOperand(nameBox, NAME_BOX.itemWidth, "the item size"),
-    BUTTON_H = readOperand(nameBox, NAME_BOX.itemHeight, "the item size"),
-    PENCIL = readOperand(nameBox, NAME_BOX.pencil, "the pencil"),
-    TEXT_MANAGER = readOperand(nameBox, NAME_BOX_TEXT_MANAGER, "the text drawing"),
-    SHADOWED_TEXT = readCallTarget(nameBox, NAME_BOX_SHADOWED_TEXT, "the text drawing"),
-    SETUP_SURFACE = readCallTarget(drawColourBox, DRAW_COLOUR_BOX_SURFACE, "the drawing surface"),
-    SETUP_PENCIL = readCallTarget(drawColourBox, DRAW_COLOUR_BOX_CLIP, "the clipping"),
-    MOUSE = readOperand(menuItem, MENU_ITEM_MOUSE, "the mouse"),
-    IS_INSIDE = readCallTarget(menuItem, MENU_ITEM_IS_INSIDE, "the mouse test"),
-    PIXEL_FORMAT = core.readInteger(scan(AOB_PIXEL_FORMAT, "the pixel format") + PIXEL_FORMAT_OPERAND),
-    MARKS = core.allocate(MARK_COUNT, true),
-    FOLLOW_UIDS = core.allocate(MARK_COUNT * 4, true),
-    MARK_COUNT = MARK_COUNT,
-    GAME_TICKS = stanceButton and fightOnTheWay and tickCounter("fightOnTheWay") or nil,
-  }
+  local horse, group, stance, toolbar
+  local function horseArcher()
+    horse = horse or scan(AOB_HORSE_ARCHER, "the horse archer's update")
+    return horse
+  end
+  local function newGroup()
+    group = group or scan(AOB_NEW_GROUP, "the new group code")
+    return group
+  end
+  local function unitBase()
+    return core.readInteger(newGroup() + NEW_GROUP_OWNER_OPERAND) - UNIT_OWNER
+  end
+  local function stanceRead()
+    stance = stance or scan(AOB_STANCE_READ, "where a stance is read")
+    return stance
+  end
+  local function keyHandler()
+    toolbar = toolbar or scan(AOB_TOOLBAR, "the recruiting buildings' key handler") - TOOLBAR_PATTERN_OFFSET
+    return toolbar
+  end
+  local function localPlayer()
+    return readOperand(keyHandler(), TOOLBAR_LOCAL_PLAYER, "the local player")
+  end
 
   if shootOnTheWay then
-    patchHorseArchers(horseArcher, values, rideOn)
+    installFeature("Horse archers shooting on the way", function()
+      local at = horseArcher()
+      local state = readOperand(at, { HA_STATE_OPERAND - 3, { 0x0F, 0xBF, 0x86 } }, "the horse archer's state")
+      patchHorseArchers(at, {
+        SHOOTING_VARIATION = state - UNIT_STATE + UNIT_SHOOTING_VARIATION,
+        LOCAL_PLAYER = localPlayer(),
+      }, setting(config, "horse_archers", "ride_on"))
+    end)
   end
   if keepNewOrders then
-    patchMoveOrders(values)
+    installFeature("Recruits keeping new orders", function()
+      patchMoveOrders({ GO_TO_RALLY_POINT = unitBase() + UNIT_GO_TO_RALLY_POINT })
+    end)
   end
   if terrainSpeed then
-    patchRallySpeed(unitBase)
+    installFeature("Terrain slowdown on the way to rally points", function() patchRallySpeed(unitBase()) end)
   end
-  if monksFix then
-    patchCathedralSearch()
-  end
-  if values.GAME_TICKS then
-    patchFightOnTheWay(horseArcher, stanceRead, values, followChanges, runWhenAggressive)
-  end
+  if monksFix then installFeature("The monks' rally point fix", patchCathedralSearch) end
+  if not rallyButtons and not stanceButton then return end
+
+  local state = core.allocate(16, true)
+  local values = { STANCE = state, RALLY_ON = state + 1 }
+  local fight = stanceButton and setting(config, "rally", "fight_on_the_way")
+  local groupInstall
   if stanceButton then
-    patchNewGroups(newGroup, values, unitBase, tribes, stanceRead)
+    local success, install = installFeature("Recruit stances", function()
+      local start = STANCES[setting(config, "stance", "start")]
+      if start == nil then
+        log(WARNING, "Unknown recruit stance. Using normal.")
+        start = STANCES.normal
+      end
+      local base, at = unitBase(), horseArcher()
+      expectBytes(at + HA_STATE_OPERAND - 3, { 0x0F, 0xBF, 0x86 }, "the horse archer's state")
+      if core.readInteger(at + HA_STATE_OPERAND) ~= base + UNIT_STATE then
+        error("the unit layout is not the one this module knows", 0)
+      end
+      local tribes, read = core.readInteger(at + HA_TRIBES_OPERAND), stanceRead()
+      values.GO_TO_RALLY_POINT = base + UNIT_GO_TO_RALLY_POINT
+      values.OWNER = base + UNIT_OWNER
+      values.GAME_MODE = core.readInteger(newGroup() + NEW_GROUP_MODE_OPERAND)
+      values.STANCE_OFFSET = core.readInteger(read + STANCE_READ_OPERAND) - tribes
+      values.LOCAL_PLAYER = localPlayer()
+      values.MARKS = core.allocate(MARK_COUNT, true)
+      values.FOLLOW_UIDS = core.allocate(MARK_COUNT * 4, true)
+      values.MARK_COUNT = MARK_COUNT
+      core.writeByte(state, start)
+      return prepareNewGroups(newGroup(), values, base, tribes, read)
+    end)
+    stanceButton, groupInstall = success, install
   end
-  if rallyButtons or stanceButton then
+  if not rallyButtons and not stanceButton then return end
+
+  local buttons = installFeature(rallyButtons and stanceButton and "Rally and stance buttons"
+      or (rallyButtons and "Rally buttons" or "Stance buttons"), function()
+    local toolbar = keyHandler()
+    local nameBox = scan(AOB_NAME_BOX, "the game's menu drawing")
+    local menuItem = scan(AOB_MENU_ITEM, "the menu item handler")
+    local drawColourBox = readCallTarget(nameBox, NAME_BOX_DRAW_COLOUR_BOX, "the box drawing")
+    values.TOOLBAR_BUTTON = toolbar
+    values.CLICK_SOUND = readOperand(toolbar, TOOLBAR_SOUND_ID, "the click sound")
+    values.SOUNDS = readOperand(toolbar, TOOLBAR_SOUNDS, "the sound player")
+    values.PLAY_SOUND = readCallTarget(toolbar, TOOLBAR_PLAY_SOUND, "the sound player")
+    values.BUTTON_X = readOperand(nameBox, NAME_BOX.itemX, "the item position")
+    values.BUTTON_Y = readOperand(nameBox, NAME_BOX.itemY, "the item position")
+    values.BUTTON_W = readOperand(nameBox, NAME_BOX.itemWidth, "the item size")
+    values.BUTTON_H = readOperand(nameBox, NAME_BOX.itemHeight, "the item size")
+    values.PENCIL = readOperand(nameBox, NAME_BOX.pencil, "the pencil")
+    values.TEXT_MANAGER = readOperand(nameBox, NAME_BOX_TEXT_MANAGER, "the text drawing")
+    values.SHADOWED_TEXT = readCallTarget(nameBox, NAME_BOX_SHADOWED_TEXT, "the text drawing")
+    values.SETUP_SURFACE = readCallTarget(drawColourBox, DRAW_COLOUR_BOX_SURFACE, "the drawing surface")
+    values.SETUP_PENCIL = readCallTarget(drawColourBox, DRAW_COLOUR_BOX_CLIP, "the clipping")
+    values.MOUSE = readOperand(menuItem, MENU_ITEM_MOUSE, "the mouse")
+    values.IS_INSIDE = readCallTarget(menuItem, MENU_ITEM_IS_INSIDE, "the mouse test")
+    values.PIXEL_FORMAT = core.readInteger(scan(AOB_PIXEL_FORMAT, "the pixel format") + PIXEL_FORMAT_OPERAND)
     installButtons(values, rallyButtons, stanceButton)
+  end)
+  if not buttons or not stanceButton then return end
+
+  local stanceReady = installFeature("Recruit stances", groupInstall)
+  if stanceReady and fight then
+    installFeature("Fighting on the way to rally points", function()
+      values.GAME_TICKS = core.readInteger(scan(AOB_TICKS, "the game tick counter") + 8)
+      patchFightOnTheWay(horseArcher(), stanceRead(), values, setting(config, "rally", "follow_changes"),
+        setting(config, "rally", "run_when_aggressive"))
+    end)
   end
 end
 
