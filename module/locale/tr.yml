@@ -17,7 +17,7 @@ stance_normal: Konumu koru
 stance_start: Başlangıç asker duruşu
 tags.behavior: Davranış
 tags.bugfixes: Hata düzeltmeleri
-terrain_speed: Yeni askerler arazi hareket hızlarını kullanır
+terrain_speed: Arazi yeni askerlerin hızını etkiler
 horse_archers_group: Atlı okçular
 shoot_on_the_way_tooltip: Atlı okçular bir toplanma noktasına giderken düşmanlara ateş edebilir.
 ride_on_tooltip: Atlı okçular ateş ederken hareketlerini sürdürür.
@@ -28,4 +28,4 @@ rally_buttons_tooltip: Bir asker toplama binasında askerin toplanma simgesine, 
 follow_changes_tooltip: Yola çıkmış yeni askerler seçilene kadar taşınan toplanma noktasını izler.
 stance_button_tooltip: Yeni askerlerin duruşunu değiştirmek için bir asker toplama binasındaki duruş simgesine tıklayın.
 fight_on_the_way_tooltip: Savunma ve saldırgan duruştaki yeni askerler toplanma noktasına giderken savaşabilir.
-run_when_aggressive_tooltip: Saldırgan yeni askerler, birim türleri koşabiliyorsa yolda koşar.
+run_when_aggressive_tooltip: Saldırgan duruştaki yeni askerler, birim türleri buna izin veriyorsa yolda koşar.

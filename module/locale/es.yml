@@ -17,7 +17,7 @@ stance_normal: Mantener posición
 stance_start: Postura inicial de los reclutas
 tags.behavior: Comportamiento
 tags.bugfixes: Correcciones
-terrain_speed: Los reclutas usan la velocidad del terreno
+terrain_speed: El terreno afecta a la velocidad de los reclutas
 horse_archers_group: Arqueros a caballo
 shoot_on_the_way_tooltip: Los arqueros a caballo pueden disparar a enemigos mientras se dirigen a un punto de reunión.
 ride_on_tooltip: Los arqueros a caballo continúan moviéndose mientras disparan.

@@ -17,7 +17,7 @@ stance_normal: حفظ موضع
 stance_start: حالت آغازین نیروهای جدید
 tags.behavior: رفتار
 tags.bugfixes: رفع اشکال
-terrain_speed: اثر سرعت زمین بر نیروهای تازه‌سربازگیری‌شده
+terrain_speed: تأثیر زمین بر سرعت نیروهای تازه‌استخدام‌شده
 horse_archers_group: کمانداران سواره
 shoot_on_the_way_tooltip: کمانداران سواره هنگام رفتن به نقطهٔ تجمع می‌توانند به دشمنان شلیک کنند.
 ride_on_tooltip: کمانداران سواره هنگام شلیک به حرکت خود ادامه می‌دهند.

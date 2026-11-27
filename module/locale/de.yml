@@ -17,7 +17,7 @@ stance_normal: Stellung halten
 stance_start: Start-Haltung für Rekruten
 tags.behavior: Verhalten
 tags.bugfixes: Fehlerkorrekturen
-terrain_speed: Rekruten nutzen Gelände-Laufgeschwindigkeiten
+terrain_speed: Gelände beeinflusst das Tempo der Rekruten
 horse_archers_group: Berittene Bogenschützen
 shoot_on_the_way_tooltip: Berittene Bogenschützen können auf dem Weg zum Sammelpunkt auf Gegner schießen.
 ride_on_tooltip: Berittene Bogenschützen setzen ihren Ritt während des Schießens fort.

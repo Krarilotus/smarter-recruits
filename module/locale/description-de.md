@@ -1,3 +1,3 @@
 # Smarter Recruits
 
-Hält Sammelbefehle reaktionsfähig, während Rekruten zu ihren Posten ziehen. Klicke in einem Rekrutierungsgebäude auf das Sammelpunkt-Symbol eines Rekruten und wähle ein Ziel. Die Haltungsschaltfläche wechselt im Einzelspieler das Verhalten neuer Rekruten.
+Sammelbefehle lassen sich weiter ändern, während Rekruten zu ihrem Sammelpunkt unterwegs sind. Klicke im Rekrutierungsgebäude auf das Sammelpunkt-Symbol beim Einheitenporträt und wähle ein Ziel. Im Einzelspieler wechselst du mit der Haltungsschaltfläche die Haltung neuer Rekruten.

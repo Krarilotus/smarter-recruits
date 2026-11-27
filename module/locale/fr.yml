@@ -17,7 +17,7 @@ stance_normal: Tenir la position
 stance_start: Posture initiale des recrues
 tags.behavior: Comportement
 tags.bugfixes: Corrections
-terrain_speed: Les recrues suivent les vitesses du terrain
+terrain_speed: Le terrain influe sur la vitesse des recrues
 horse_archers_group: Archers montés
 shoot_on_the_way_tooltip: Les archers montés peuvent tirer sur les ennemis en rejoignant un point de ralliement.
 ride_on_tooltip: Les archers montés poursuivent leur déplacement tout en tirant.
@@ -26,6 +26,6 @@ terrain_speed_tooltip: Le terrain affecte la vitesse de marche vers les points d
 monks_fix_tooltip: Les moines utilisent une case libre voisine lorsque leur point de ralliement est occupé.
 rally_buttons_tooltip: Dans un bâtiment de recrutement, cliquez sur l’icône de ralliement d’une recrue puis sur la destination sur la carte.
 follow_changes_tooltip: Les recrues déjà en route suivent un point de ralliement déplacé tant qu’elles ne sont pas sélectionnées.
-stance_button_tooltip: Cliquez sur l’icône de posture dans un bâtiment de recrutement pour faire défiler la posture des nouvelles recrues.
+stance_button_tooltip: Cliquez sur l’icône de posture du bâtiment de recrutement pour passer d’une posture à l’autre pour les nouvelles recrues.
 fight_on_the_way_tooltip: Les recrues en posture défensive ou agressive peuvent combattre en route vers leur point de ralliement.
 run_when_aggressive_tooltip: Les recrues agressives courent en chemin si leur type d’unité sait courir.
