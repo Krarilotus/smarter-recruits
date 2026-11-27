@@ -373,6 +373,7 @@ end
 local function tickCounter(feature)
   local site, problem = core.AOBScanUnique(AOB_TICKS)
   if site then return core.readInteger(site + 8) end
+  log(ERROR, "Fighting on the way to rally points is off. The game tick counter could not be read.")
   log(WARNING, string.format("%s: game tick counter %s, %s stays off", MODULE_NAME, problem, feature))
 end
 
@@ -649,6 +650,7 @@ local function patchRallySpeed(unitBase)
     return (modrm & 0xC7) == 0x86 -- [esi + disp32] with ax/cx/dx/bx...
   end)
   if #sites ~= RALLY_SPEED_STORES then
+    log(ERROR, "Terrain slowdown for recruits heading to rally points is off.")
     log(WARNING, string.format("%s: found %d of the %d rally speed stores; terrain still does not "
       .. "slow recruits on the way to their rally point", MODULE_NAME, #sites, RALLY_SPEED_STORES))
     return
@@ -668,6 +670,7 @@ local CATHEDRAL_FIXED_ENTRY = 3
 local function patchCathedralSearch()
   local ok, search = pcall(core.AOBScan, AOB_CATHEDRAL_SEARCH)
   if not ok or search == nil then
+    log(ERROR, "The monks' rally point fix is off. The rally point search could not be verified.")
     log(WARNING, MODULE_NAME .. ": could not find the monks' rally point search; not fixed")
     return
   end
@@ -677,6 +680,7 @@ local function patchCathedralSearch()
   local y = core.readInteger(site + 3) - CATHEDRAL_FIXED_ENTRY * 4
   local x = core.readInteger(site + 14) - CATHEDRAL_FIXED_ENTRY * 4
   if x ~= y - 2 then
+    log(ERROR, "The monks' rally point fix is off. The rally point search could not be verified.")
     log(WARNING, MODULE_NAME .. ": the monks' rally point search is not the one this module knows")
     return
   end
@@ -796,6 +800,7 @@ local function patchFightOnTheWay(horseArcher, stanceRead, values, followChanges
       jumpTo(site, stub, 7)
     end
   else
+    log(ERROR, "Ranged recruits firing on the way to rally points is off.")
     log(WARNING, string.format("%s: found %d of the %d ranged walking stance tests; ranged recruits "
       .. "will not stop to shoot on the way", MODULE_NAME, #rangedSites, RANGED_WALK_CHECK_COUNT))
   end
