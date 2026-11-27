@@ -1,20 +1,31 @@
 bugfixes: Hata düzeltmeleri
-fight_on_the_way: Savunma ve saldırgan duruştaki yeni askerler yolda savaşır
-follow_changes: Yeni askerler seçilene kadar taşınan toplanma noktasını izler
-keep_new_orders: Yeni emirler toplanma hedefinin yerini alır
-monks_fix: Keşişler toplanma noktası yakınında boş kare bulur
+fight_on_the_way: Yeni askerler yolda savaşabilir
+follow_changes: Seçilmemiş yeni askerler taşınan toplanma noktalarını izler
+keep_new_orders: Yeni emirler toplanma emrinin yerini alır
+monks_fix: Keşişler toplanma noktası yakınında boş yer bulur
 qol: Kullanım kolaylığı
-rally_buttons: Birim portrelerinde toplanma düğmelerini göster
+rally_buttons: Asker portrelerinde toplanma düğmeleri
 rally_group: Yeni askerlerin toplanma noktaları
-ride_on: Atlı okçular savaşırken ilerlemeye devam eder
+ride_on: Atlı okçular ateş ederken sürmeye devam eder
 run_when_aggressive: Saldırgan yeni askerler mümkünse koşar
 shoot_on_the_way: Atlı okçular toplanma noktasına giderken ateş eder
 stance_aggressive: Saldırgan
-stance_button: Duruş düğmelerini göster (tek oyunculu)
+stance_button: Yeni asker duruş düğmesi (tek oyunculu)
 stance_defensive: Savunma
 stance_group: Yeni asker duruşu
 stance_normal: Konumu koru
-stance_start: Yeni askerlerin başlangıç duruşu
+stance_start: Başlangıç asker duruşu
 tags.behavior: Davranış
 tags.bugfixes: Hata düzeltmeleri
-terrain_speed: Arazi yeni askerlerin hareket hızını etkiler
+terrain_speed: Yeni askerler arazi hareket hızlarını kullanır
+horse_archers_group: Atlı okçular
+shoot_on_the_way_tooltip: Atlı okçular bir toplanma noktasına giderken düşmanlara ateş edebilir.
+ride_on_tooltip: Atlı okçular ateş ederken hareketlerini sürdürür.
+keep_new_orders_tooltip: Yeni askerler toplanma noktasına giderken verilen yeni emirlere uyar.
+terrain_speed_tooltip: Toplanma noktalarına giderken arazi yürüme hızını etkiler.
+monks_fix_tooltip: Toplanma noktaları dolu olduğunda keşişler yakındaki boş bir kareyi kullanabilir.
+rally_buttons_tooltip: Bir asker toplama binasında askerin toplanma simgesine, ardından haritada hedefe tıklayın.
+follow_changes_tooltip: Yola çıkmış yeni askerler seçilene kadar taşınan toplanma noktasını izler.
+stance_button_tooltip: Yeni askerlerin duruşunu değiştirmek için bir asker toplama binasındaki duruş simgesine tıklayın.
+fight_on_the_way_tooltip: Savunma ve saldırgan duruştaki yeni askerler toplanma noktasına giderken savaşabilir.
+run_when_aggressive_tooltip: Saldırgan yeni askerler, birim türleri koşabiliyorsa yolda koşar.

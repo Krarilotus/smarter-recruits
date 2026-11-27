@@ -1,3 +1,3 @@
 # Smarter Recruits
 
-Javítja, hogy az újoncok figyelmen kívül hagyják az új parancsokat, és javítja a gyülekezési ponton tanúsított viselkedésüket. Gyülekezési pont- és harci mód gombokat ad a toborzóépületekhez.
+Rugalmasan tartja a gyülekezési parancsokat, miközben az újoncok az állásukhoz vonulnak. Egy toborzóépületben kattints egy újonc gyülekezési ikonjára és válassz célpontot. A harci mód gomb egyjátékos módban váltja az új újoncok viselkedését.

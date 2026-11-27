@@ -1,20 +1,31 @@
 bugfixes: Corrections de bugs
-fight_on_the_way: Les recrues défensives et agressives combattent en chemin
-follow_changes: Les recrues suivent un point de ralliement déplacé jusqu'à leur sélection
-keep_new_orders: Les nouveaux ordres remplacent la destination de ralliement
+fight_on_the_way: Les recrues peuvent combattre en chemin
+follow_changes: Les recrues non sélectionnées suivent les points de ralliement déplacés
+keep_new_orders: Les nouveaux ordres remplacent le ralliement
 monks_fix: Les moines cherchent une case libre près du point de ralliement
 qol: Qualité de vie
-rally_buttons: Afficher les boutons de ralliement sur les portraits d'unités
+rally_buttons: Boutons de ralliement sur les portraits des recrues
 rally_group: Points de ralliement des recrues
-ride_on: Les archers montés continuent à avancer en combattant
+ride_on: Les archers montés continuent de chevaucher en tirant
 run_when_aggressive: Les recrues agressives courent si possible
-shoot_on_the_way: Les archers montés tirent en chemin vers leur point de ralliement
+shoot_on_the_way: Les archers montés tirent en route vers le point de ralliement
 stance_aggressive: Agressive
-stance_button: Afficher les boutons de posture (solo)
+stance_button: Bouton de posture des recrues (solo)
 stance_defensive: Défensive
 stance_group: Posture des recrues
 stance_normal: Tenir la position
 stance_start: Posture initiale des recrues
 tags.behavior: Comportement
 tags.bugfixes: Corrections
-terrain_speed: Le terrain affecte la vitesse de déplacement des recrues
+terrain_speed: Les recrues suivent les vitesses du terrain
+horse_archers_group: Archers montés
+shoot_on_the_way_tooltip: Les archers montés peuvent tirer sur les ennemis en rejoignant un point de ralliement.
+ride_on_tooltip: Les archers montés poursuivent leur déplacement tout en tirant.
+keep_new_orders_tooltip: Les recrues suivent les nouveaux ordres donnés en route vers leur point de ralliement.
+terrain_speed_tooltip: Le terrain affecte la vitesse de marche vers les points de ralliement.
+monks_fix_tooltip: Les moines utilisent une case libre voisine lorsque leur point de ralliement est occupé.
+rally_buttons_tooltip: Dans un bâtiment de recrutement, cliquez sur l’icône de ralliement d’une recrue puis sur la destination sur la carte.
+follow_changes_tooltip: Les recrues déjà en route suivent un point de ralliement déplacé tant qu’elles ne sont pas sélectionnées.
+stance_button_tooltip: Cliquez sur l’icône de posture dans un bâtiment de recrutement pour faire défiler la posture des nouvelles recrues.
+fight_on_the_way_tooltip: Les recrues en posture défensive ou agressive peuvent combattre en route vers leur point de ralliement.
+run_when_aggressive_tooltip: Les recrues agressives courent en chemin si leur type d’unité sait courir.

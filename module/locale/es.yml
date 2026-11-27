@@ -1,20 +1,31 @@
 bugfixes: Correcciones de errores
-fight_on_the_way: Los reclutas defensivos y agresivos luchan por el camino
-follow_changes: Los reclutas siguen un punto de reunión movido hasta ser seleccionados
-keep_new_orders: Las nuevas órdenes sustituyen el destino de reunión
-monks_fix: Los monjes buscan una casilla libre cerca de su punto de reunión
+fight_on_the_way: Los reclutas pueden combatir en el camino
+follow_changes: Los reclutas no seleccionados siguen puntos de reunión movidos
+keep_new_orders: Las nuevas órdenes reemplazan la de reunión
+monks_fix: Los monjes buscan un hueco libre cerca del punto de reunión
 qol: Comodidad de juego
-rally_buttons: Mostrar botones de reunión en los retratos de unidades
+rally_buttons: Botones de reunión en los retratos de reclutas
 rally_group: Puntos de reunión de reclutas
-ride_on: Los arqueros a caballo siguen cabalgando mientras luchan
+ride_on: Los arqueros a caballo siguen cabalgando mientras disparan
 run_when_aggressive: Los reclutas agresivos corren cuando pueden
-shoot_on_the_way: Los arqueros a caballo disparan de camino a su punto de reunión
+shoot_on_the_way: Los arqueros a caballo disparan camino al punto de reunión
 stance_aggressive: Agresiva
-stance_button: Mostrar botones de postura (un jugador)
+stance_button: Botón de postura de reclutas (un jugador)
 stance_defensive: Defensiva
 stance_group: Postura de los reclutas
 stance_normal: Mantener posición
-stance_start: Postura inicial de reclutas
+stance_start: Postura inicial de los reclutas
 tags.behavior: Comportamiento
 tags.bugfixes: Correcciones
-terrain_speed: El terreno afecta a la velocidad de movimiento de los reclutas
+terrain_speed: Los reclutas usan la velocidad del terreno
+horse_archers_group: Arqueros a caballo
+shoot_on_the_way_tooltip: Los arqueros a caballo pueden disparar a enemigos mientras se dirigen a un punto de reunión.
+ride_on_tooltip: Los arqueros a caballo continúan moviéndose mientras disparan.
+keep_new_orders_tooltip: Los reclutas obedecen nuevas órdenes dadas camino a su punto de reunión.
+terrain_speed_tooltip: El terreno afecta a la velocidad de marcha camino a los puntos de reunión.
+monks_fix_tooltip: Los monjes pueden usar una casilla libre cercana si su punto de reunión está ocupado.
+rally_buttons_tooltip: En un edificio de reclutamiento, haz clic en el icono de reunión de un recluta y luego en el destino en el mapa.
+follow_changes_tooltip: Los reclutas que ya van en camino siguen el punto de reunión movido hasta que los selecciones.
+stance_button_tooltip: Haz clic en el icono de postura de un edificio de reclutamiento para alternar la postura de los nuevos reclutas.
+fight_on_the_way_tooltip: Los reclutas en postura defensiva o agresiva pueden combatir camino a su punto de reunión.
+run_when_aggressive_tooltip: Los reclutas en postura agresiva corren por el camino si su tipo de unidad puede correr.

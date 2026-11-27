@@ -1,3 +1,3 @@
 # Smarter Recruits
 
-Yeni emirleri yok sayan askerleri düzeltir ve toplanma davranışlarını iyileştirir. Asker üreten binalara toplanma ve duruş düğmeleri ekler.
+Yeni askerler mevzilerine giderken toplanma emirlerinin duyarlı kalmasını sağlar. Bir asker toplama binasında askerin toplanma simgesine tıklayıp bir hedef seçin. Duruş düğmesi tek oyunculu oyunda yeni askerlerin davranışını değiştirir.

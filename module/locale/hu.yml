@@ -1,20 +1,31 @@
 bugfixes: Hibajavítások
-fight_on_the_way: A védekező és támadó újoncok útközben harcolnak
-follow_changes: Az újoncok kijelölésig követik az áthelyezett gyülekezési pontot
-keep_new_orders: Az új parancsok felülírják a gyülekezési célt
-monks_fix: A szerzetesek szabad mezőt találnak a gyülekezési pont közelében
+fight_on_the_way: Az újoncok harcolhatnak útközben
+follow_changes: A nem kijelölt újoncok követik az áthelyezett gyülekezési pontot
+keep_new_orders: Az új parancsok felülírják a gyülekezési parancsot
+monks_fix: A szerzetesek szabad helyet keresnek a gyülekezési pont mellett
 qol: Kényelmi funkciók
-rally_buttons: Gyülekezési gombok megjelenítése az egységportrékon
+rally_buttons: Gyülekezési gombok az újoncok portréin
 rally_group: Újoncok gyülekezési pontjai
-ride_on: A lovasíjászok harc közben is tovább lovagolnak
+ride_on: A lovasíjászok lövés közben is tovább lovagolnak
 run_when_aggressive: A támadó újoncok futnak, ha tudnak
-shoot_on_the_way: A lovasíjászok a gyülekezési pont felé menet is lőnek
+shoot_on_the_way: A lovasíjászok lőnek a gyülekezési pont felé menet
 stance_aggressive: Támadó
-stance_button: Harci mód gombok megjelenítése (egyjátékos mód)
+stance_button: Újoncok harci mód gombja (egyjátékos)
 stance_defensive: Védekező
 stance_group: Újoncok harci módja
 stance_normal: Helyben maradás
-stance_start: Újoncok kezdeti harci módja
+stance_start: Újoncok kezdő harci módja
 tags.behavior: Viselkedés
 tags.bugfixes: Hibajavítások
-terrain_speed: A terep befolyásolja az újoncok mozgási sebességét
+terrain_speed: Az újoncok a terep sebességével haladnak
+horse_archers_group: Lovasíjászok
+shoot_on_the_way_tooltip: A lovasíjászok menet közben is lőhetnek az ellenségre a gyülekezési pont felé.
+ride_on_tooltip: A lovasíjászok tüzelés közben folytatják a mozgást.
+keep_new_orders_tooltip: Az újoncok követik a gyülekezési pont felé menet kapott új parancsokat.
+terrain_speed_tooltip: A terep befolyásolja a gyaloglási sebességet a gyülekezési pontok felé.
+monks_fix_tooltip: A szerzetesek egy közeli szabad mezőt választanak, ha a gyülekezési pontjuk foglalt.
+rally_buttons_tooltip: Egy toborzóépületben kattints egy újonc gyülekezési ikonjára, majd a célpontra a térképen.
+follow_changes_tooltip: A már úton lévő újoncok követik az áthelyezett gyülekezési pontot, amíg ki nem jelölöd őket.
+stance_button_tooltip: Kattints a harci mód ikonra egy toborzóépületben az új újoncok módjának váltásához.
+fight_on_the_way_tooltip: A védekező és támadó újoncok harcba bocsátkozhatnak a gyülekezési pont felé menet.
+run_when_aggressive_tooltip: A támadó újoncok futnak útközben, ha az egységtípusuk képes futni.

@@ -1,20 +1,31 @@
 bugfixes: Fehlerkorrekturen
-fight_on_the_way: Defensive und aggressive Rekruten kämpfen unterwegs
-follow_changes: Rekruten folgen einem versetzten Sammelpunkt bis zur Auswahl
-keep_new_orders: Neue Befehle ersetzen das Sammelziel
-monks_fix: Mönche suchen ein freies Feld nahe dem Sammelpunkt
+fight_on_the_way: Rekruten können unterwegs kämpfen
+follow_changes: Nicht ausgewählte Rekruten folgen verlegten Sammelpunkten
+keep_new_orders: Neue Befehle ersetzen den Sammelbefehl
+monks_fix: Mönche suchen freien Platz nahe dem Sammelpunkt
 qol: Komfort
-rally_buttons: Sammelpunktknöpfe auf Einheitenporträts anzeigen
+rally_buttons: Sammelpunkt-Schaltflächen an Rekruten-Porträts
 rally_group: Sammelpunkte für Rekruten
-ride_on: Berittene Bogenschützen reiten beim Kämpfen weiter
+ride_on: Berittene Bogenschützen reiten beim Schießen weiter
 run_when_aggressive: Aggressive Rekruten rennen, wenn möglich
-shoot_on_the_way: Berittene Bogenschützen schießen unterwegs zum Sammelpunkt
+shoot_on_the_way: Berittene Bogenschützen schießen auf dem Weg zum Sammelpunkt
 stance_aggressive: Aggressiv
-stance_button: Haltungsknöpfe anzeigen (Einzelspieler)
+stance_button: Rekruten-Haltungsschaltfläche (Einzelspieler)
 stance_defensive: Defensiv
 stance_group: Haltung der Rekruten
 stance_normal: Stellung halten
-stance_start: Anfängliche Rekrutenhaltung
+stance_start: Start-Haltung für Rekruten
 tags.behavior: Verhalten
 tags.bugfixes: Fehlerkorrekturen
-terrain_speed: Gelände beeinflusst die Bewegungsgeschwindigkeit von Rekruten
+terrain_speed: Rekruten nutzen Gelände-Laufgeschwindigkeiten
+horse_archers_group: Berittene Bogenschützen
+shoot_on_the_way_tooltip: Berittene Bogenschützen können auf dem Weg zum Sammelpunkt auf Gegner schießen.
+ride_on_tooltip: Berittene Bogenschützen setzen ihren Ritt während des Schießens fort.
+keep_new_orders_tooltip: Rekruten befolgen neue Befehle, die auf dem Weg zum Sammelpunkt erteilt werden.
+terrain_speed_tooltip: Das Gelände beeinflusst die Laufgeschwindigkeit auf dem Weg zu Sammelpunkten.
+monks_fix_tooltip: Mönche nutzen ein nahes freies Feld, wenn ihr Sammelpunkt besetzt ist.
+rally_buttons_tooltip: Klicke in einem Rekrutierungsgebäude auf das Sammelpunkt-Symbol eines Rekruten und dann auf das Ziel auf der Karte.
+follow_changes_tooltip: Bereits unterwegs befindliche Rekruten folgen einem verlegten Sammelpunkt, bis sie ausgewählt werden.
+stance_button_tooltip: Klicke im Rekrutierungsgebäude auf das Haltungs-Symbol, um die Haltung neuer Rekruten durchzuschalten.
+fight_on_the_way_tooltip: Defensive und aggressive Rekruten können auf dem Weg zum Sammelpunkt kämpfen.
+run_when_aggressive_tooltip: Aggressive Rekruten rennen unterwegs, wenn ihr Einheitentyp rennen kann.
