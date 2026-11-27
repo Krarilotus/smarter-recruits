@@ -1106,7 +1106,7 @@ local function installButtons(values, rallyOn, stanceOn)
   for _, byte in ipairs(core.itob(tableStart)) do
     startBytes[#startBytes + 1] = string.format("%02X", byte & 0xFF)
   end
-  local constructorSite = core.AOBScanUnique("68 " .. table.concat(startBytes, " ") .. " B9")
+  local constructorSite, reason = core.AOBScanUnique("68 " .. table.concat(startBytes, " ") .. " B9")
 
   -- The static item table: covers a menu built after this point. The members' own render
   -- is 0 there (the Menu constructor fills it from the header, but only where it is 0), or
@@ -1125,8 +1125,7 @@ local function installButtons(values, rallyOn, stanceOn)
       wrapLiveMenu(menu, wrappers)
     end)
   else
-    log(WARNING, MODULE_NAME .. ": could not find the building menu itself; the buttons rely on "
-      .. "its item table")
+    log(ERROR, "Live recruit menu refresh is off: the building menu constructor " .. reason)
   end
 end
 
