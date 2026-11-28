@@ -29,3 +29,5 @@ rally_buttons_tooltip: At a recruitment building, click a recruit’s rally icon
 run_when_aggressive_tooltip: Aggressive recruits run on the way when their unit type can run.
 fight_on_the_way_tooltip: Defensive and Aggressive recruits can fight while heading to their rally point.
 stance_button_tooltip: Click the stance icon at a recruitment building to cycle the stance of new recruits.
+cat_recruiting_rallying: Recruiting and rallying
+cat_unit_controls: Unit controls

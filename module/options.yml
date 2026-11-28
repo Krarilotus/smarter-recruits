@@ -22,6 +22,7 @@ options:
       text: '{{ride_on_tooltip}}'
   category:
   - '{{bugfixes}}'
+  - '{{cat_recruiting_rallying}}'
 - display: GroupBox
   hasHeader: true
   header: '{{rally_group}}'
@@ -52,6 +53,7 @@ options:
     text: '{{monks_fix_tooltip}}'
   category:
   - '{{bugfixes}}'
+  - '{{cat_recruiting_rallying}}'
 - url: smarter-recruits.rally.buttons
   name: smarter-recruits-rally-buttons
   display: UCP2Switch
@@ -62,6 +64,7 @@ options:
   text: '{{rally_buttons_tooltip}}'
   category:
   - '{{qol}}'
+  - '{{cat_unit_controls}}'
 - display: GroupBox
   hasHeader: true
   header: '{{stance_group}}'
@@ -115,5 +118,6 @@ options:
         text: '{{run_when_aggressive_tooltip}}'
   category:
   - '{{qol}}'
+  - '{{cat_unit_controls}}'
 meta:
   version: 1.0.0

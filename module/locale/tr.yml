@@ -29,3 +29,5 @@ follow_changes_tooltip: Yola çıkmış yeni askerler seçilene kadar taşınan 
 stance_button_tooltip: Yeni askerlerin duruşunu değiştirmek için bir asker toplama binasındaki duruş simgesine tıklayın.
 fight_on_the_way_tooltip: Savunma ve saldırgan duruştaki yeni askerler toplanma noktasına giderken savaşabilir.
 run_when_aggressive_tooltip: Saldırgan duruştaki yeni askerler, birim türleri buna izin veriyorsa yolda koşar.
+cat_recruiting_rallying: Asker toplama ve toplanma
+cat_unit_controls: Birlik kontrolleri

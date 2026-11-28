@@ -29,3 +29,5 @@ follow_changes_tooltip: 已在路上的新兵在被选中前会跟随移动后�
 stance_button_tooltip: 点击招募建筑中的姿态图标，循环切换新兵姿态。
 fight_on_the_way_tooltip: 防御与进攻姿态的新兵在前往集结点途中可主动交战。
 run_when_aggressive_tooltip: 进攻姿态的新兵若兵种支持奔跑，会在途中奔跑前进。
+cat_recruiting_rallying: 招募与集结
+cat_unit_controls: 部队操控

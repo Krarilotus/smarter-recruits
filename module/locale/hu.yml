@@ -29,3 +29,5 @@ follow_changes_tooltip: A már úton lévő újoncok követik az áthelyezett gy
 stance_button_tooltip: Kattints a toborzóépület harci módot jelző ikonjára az újoncok harci módjának váltásához.
 fight_on_the_way_tooltip: A védekező és támadó újoncok harcba bocsátkozhatnak a gyülekezési pont felé menet.
 run_when_aggressive_tooltip: A támadó újoncok futnak útközben, ha az egységtípusuk képes futni.
+cat_recruiting_rallying: Toborzás és gyülekezés
+cat_unit_controls: Egységirányítás

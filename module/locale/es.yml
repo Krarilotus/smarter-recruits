@@ -29,3 +29,5 @@ follow_changes_tooltip: Los reclutas que ya van en camino siguen el punto de reu
 stance_button_tooltip: Haz clic en el icono de postura de un edificio de reclutamiento para alternar la postura de los nuevos reclutas.
 fight_on_the_way_tooltip: Los reclutas en postura defensiva o agresiva pueden combatir camino a su punto de reunión.
 run_when_aggressive_tooltip: Los reclutas en postura agresiva corren por el camino si su tipo de unidad puede correr.
+cat_recruiting_rallying: Reclutamiento y reagrupación
+cat_unit_controls: Control de unidades
